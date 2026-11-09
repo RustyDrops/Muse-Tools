@@ -1,6 +1,6 @@
 # Muse Tools — built Muse-led, 2026-10-27
 
-Five small tools, one focused job each. None posts, sends, deletes,
+Four small tools, one focused job each. None posts, sends, deletes,
 approves, or bypasses a QA gate on its own.
 
 1. **Context Meter** — `context-meter.py`
@@ -18,12 +18,7 @@ approves, or bypasses a QA gate on its own.
    side chat. No transcripts, logs, or pasted content.
    Run: `python3 ~/workspace/muse-tools/handoff.py new <slug> --title "<title>"`
 
-4. **Delegate Cost Ledger** — `cost-ledger.py`
-   Totals only from `~/workspace/ai-cost-tracker/usage.jsonl`. No prompts,
-   keys, or response text. Warns under $1.00 OpenAI credit remaining.
-   Run: `python3 ~/workspace/muse-tools/cost-ledger.py`
-
-5. **Tap-to-Run Launcher** — `tap-to-run.md` + list widget in chat
+4. **Tap-to-Run Launcher** — `tap-to-run.md` + list widget in chat
    Tap a row → it sends that request as the user's message → Muse runs the
    tool and reports back. See `tap-to-run.md` for exact row texts.
 

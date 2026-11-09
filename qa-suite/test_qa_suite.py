@@ -40,9 +40,22 @@ HAS_FONTS = (Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf").exists()
 HAS_FFMPEG = shutil.which("ffmpeg") is not None
 HAS_FFPROBE = shutil.which("ffprobe") is not None
 
+# Layout extractor (external module, not shipped): the image-layout proof
+# cases skip when it is unavailable. Point REUSE_LAYOUT_DIR in
+# checks_image.py at your layout-tools directory to run them.
+import checks_image  # noqa: E402
+HAS_EXTRACTOR = False
+if Path(checks_image.REUSE_LAYOUT_DIR).is_dir():
+    sys.path.insert(0, checks_image.REUSE_LAYOUT_DIR)
+    try:
+        import delegate_qa_orchestrator  # noqa: F401
+        HAS_EXTRACTOR = True
+    except Exception:
+        HAS_EXTRACTOR = False
+
 needs_layout = pytest.mark.skipif(
-    not (HAS_PIL and HAS_FONTS),
-    reason="needs PIL + DejaVu fonts for check_layout")
+    not (HAS_PIL and HAS_FONTS and HAS_EXTRACTOR),
+    reason="needs PIL + DejaVu fonts + the layout extractor (not shipped)")
 needs_media = pytest.mark.skipif(
     not (HAS_FFMPEG and HAS_FFPROBE),
     reason="needs ffmpeg + ffprobe for audio checks")
@@ -78,7 +91,7 @@ def test_good_layout_passes_and_fix_is_noop(tmp_path):
     code, verdict = run_qa("check", "image", str(target), "--fix")
     assert code == 0, verdict
     assert verdict["pass"] is True
-    assert verdict["luna_cost_usd"] == 0.0
+    assert verdict["delegate_cost_usd"] == 0.0
     assert target.read_bytes() == before  # no-op: not rewritten
 
 
@@ -94,7 +107,7 @@ def test_bad_layout_turn1_fail_reaches_pass(tmp_path):
     assert verdict["pass"] is True
     assert verdict["fixed"] is True
     assert verdict["fixes_applied"], "must name the local fixes applied"
-    assert verdict["luna_cost_usd"] == 0.0
+    assert verdict["delegate_cost_usd"] == 0.0
 
 
 @needs_layout
@@ -118,7 +131,7 @@ def test_extractor_error_is_checker_error(tmp_path):
     target.write_text("x = 1\n", encoding="utf-8")
     code, verdict = run_qa("check", "image", str(target))
     assert code == 2, verdict
-    assert "error" in verdict  # never a Luna round, never a PASS
+    assert "error" in verdict  # never a delegate round, never a PASS
 
 
 # --- code checker ---

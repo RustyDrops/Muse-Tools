@@ -7,8 +7,8 @@ Usage: qa_suite.py check <code|image|audio> <path> [--fix]
 Exit 0 PASS / 1 FAIL / 2 checker-error (mirrors auto_fix.py exit codes).
 Prints one JSON verdict with exact measurements per failure.
 With --fix, runs the local auto-fix first (Pillow layout scripts only)
-and reports `unfixable` (with measurements) when a Luna fix round is
-justified. Never calls Luna itself; luna_cost_usd is always 0.0.
+and reports `unfixable` (with measurements) when a delegate fix round is
+justified. Never calls a delegate itself; delegate_cost_usd is always 0.0.
 Gate semantics (socialforge/qa.py): runs last, blocks on FAIL.
 """
 
@@ -19,7 +19,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 
-REUSE_LAYOUT_DIR = "/home/hatch/workspace/openai-batch-test-2026-11-05"
+REUSE_LAYOUT_DIR = "/path/to/your/layout-tools"  # set to the directory holding qa_tools.py and the layout extractor
 
 
 def _check_code(path):
@@ -90,7 +90,7 @@ def main(argv):
 
     verdict = {"tool": "qa-suite", "kind": kind, "path": str(path),
                "fix_requested": fix, "fixed": False, "fixes_applied": [],
-               "unfixable": False, "reasons": [], "luna_cost_usd": 0.0}
+               "unfixable": False, "reasons": [], "delegate_cost_usd": 0.0}
 
     if kind == "code":
         check = _check_code(path)
@@ -131,7 +131,7 @@ def main(argv):
             verdict["fix_note"] = note
             verdict["unfixable"] = True
             verdict["reasons"] = [
-                "no local auto-fix applies; a Luna round with the "
+                "no local auto-fix applies; a delegate round with the "
                 "attached measurements is justified"]
     elif fix and check.get("pass"):
         verdict["fix_note"] = "already passing; no-op, file not rewritten"

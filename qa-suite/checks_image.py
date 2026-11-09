@@ -1,8 +1,8 @@
 """Image checker: Pillow-script layout + rendered-PNG gates.
 
 Layout reuse (import by path, never copied):
-  openai-batch-test-2026-11-05/qa_tools.py        -> check_layout
-  openai-batch-test-2026-11-05/luna_qa_orchestrator.py -> extract_layout
+  layout-tools/qa_tools.py        -> check_layout
+  layout-tools/delegate_qa_orchestrator.py -> extract_layout
   pillow-templates/qa.py                          -> blank-image stddev floor
 Contrast thresholds re-implemented as constants citing the Node source
 (engine/shared/design-quality.js): 4.5:1 body, 3:1 large text.
@@ -17,7 +17,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 
-REUSE_LAYOUT_DIR = ("/home/hatch/workspace/openai-batch-test-2026-11-05")
+REUSE_LAYOUT_DIR = "/path/to/your/layout-tools"  # set to the directory holding qa_tools.py and the layout extractor
 if REUSE_LAYOUT_DIR not in sys.path:
     sys.path.insert(0, REUSE_LAYOUT_DIR)
 
@@ -67,10 +67,10 @@ def check_image_script(path):
     """Layout check of a Pillow generator script via the reused extractor.
 
     Returns verdict dict; {"error": ...} on extractor failure (exit 2
-    upstream, never a Luna round). Re-asserts the type floor explicitly.
+    upstream, never a delegate round). Re-asserts the type floor explicitly.
     """
     try:
-        import luna_qa_orchestrator as orch
+        import delegate_qa_orchestrator as orch
         from qa_tools import check_layout
     except Exception as exc:
         return {"pass": False, "error": f"reuse import failed: {exc}",
