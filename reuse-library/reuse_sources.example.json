@@ -1,0 +1,1 @@
+{"roots":{"suite":"./templates"},"sources":[{"kind":"code","path":"your-code/*.py","verified":false},{"kind":"template","path":"your-templates/registry.json","verified":false}]}

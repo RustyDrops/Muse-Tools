@@ -1,0 +1,54 @@
+<style>
+  *{box-sizing:border-box}
+  .glance-wrap{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#fff7ec;border-radius:24px;padding:20px 14px 16px;text-align:center;color:#2b2620;overflow:hidden}
+  .glance-wrap h3{margin:0 0 2px;font-size:17px;letter-spacing:-.01em}
+  .glance-wrap .sub{margin:0 0 14px;font-size:13px;color:#7a6f63}
+  .phone{width:264px;max-width:100%;margin:0 auto;background:#ffffff;border:2px solid #efe3d3;border-radius:32px;padding:10px 10px 14px;box-shadow:0 10px 30px rgba(120,85,40,.14)}
+  .phone-top{display:flex;justify-content:space-between;align-items:center;padding:2px 10px 8px;font-size:11px;color:#8a7d6e}
+  .notch{width:64px;height:16px;background:#2b2620;border-radius:20px}
+  .stage{position:relative;min-height:185px}
+  .card{background:#232323;color:#fff;border-radius:18px;padding:14px;text-align:left;box-shadow:0 8px 20px rgba(0,0,0,.18);animation:cardIn 8s ease-in-out infinite}
+  .card-head{display:flex;gap:10px;align-items:flex-start}
+  .icon{flex:0 0 36px;width:36px;height:36px;border-radius:50%;background:#3a3a3a;display:grid;place-items:center}
+  .card h4{margin:0;font-size:15px;line-height:1.25}
+  .card p{margin:4px 0 0;font-size:13px;line-height:1.4;color:#d9d9d9}
+  .details-btn{margin-top:10px;width:100%;background:transparent;border:0;border-top:1px solid #3d3d3d;padding:10px 0 2px;display:flex;justify-content:space-between;align-items:center;color:#ff8a3d;font-size:13px;font-weight:700;cursor:pointer}
+  .details-btn svg{transition:transform .4s;animation:arrowFlip 8s ease-in-out infinite}
+  .details-panel{max-height:0;overflow:hidden;animation:panelOpen 8s ease-in-out infinite}
+  .details-panel div{padding-top:8px;font-size:12.5px;line-height:1.45;color:#e6e6e6}
+  .details-panel a{color:#ff8a3d;text-decoration:none;font-weight:700}
+  .cursor{position:absolute;right:32px;bottom:78px;width:22px;height:22px;border-radius:50%;background:#ffb27a;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);opacity:0;pointer-events:none;animation:tapDot 8s ease-in-out infinite}
+  .cursor:after{content:"";position:absolute;left:15px;top:15px;border-left:7px solid #2b2620;border-top:7px solid transparent;border-bottom:7px solid transparent;transform:rotate(45deg)}
+  @keyframes cardIn{0%,6%{opacity:0;transform:translateY(14px) scale(.97)}10%,88%{opacity:1;transform:translateY(0) scale(1)}94%,100%{opacity:0;transform:translateY(8px)}}
+  @keyframes tapDot{0%,35%{opacity:0;transform:scale(1)}40%{opacity:1}45%{opacity:1;transform:scale(.75)}50%,100%{opacity:0}}
+  @keyframes arrowFlip{0%,42%{transform:rotate(0)}48%,86%{transform:rotate(180deg)}92%,100%{transform:rotate(0)}}
+  @keyframes panelOpen{0%,42%{max-height:0;opacity:0}50%,86%{max-height:110px;opacity:1}90%,100%{max-height:0;opacity:0}}
+  .steps{display:flex;gap:8px;justify-content:center;margin-top:14px}
+  .steps span{font-size:11px;background:#fff;border:1px solid #efe3d3;border-radius:99px;padding:5px 9px;color:#6b5e50}
+  .replay{margin-top:12px;background:#2b2620;color:#fff;border:0;border-radius:99px;padding:8px 16px;font-size:13px;cursor:pointer}
+  .note{margin:10px 0 0;font-size:12px;color:#8a7d6e}
+</style>
+<div class="glance-wrap">
+  <h3>At a glance</h3>
+  <p class="sub">Glance first. Detail only if you tap.</p>
+  <div class="phone">
+    <div class="phone-top"><span>9:41</span><span class="notch"></span><span>Muse</span></div>
+    <div class="stage" id="glanceStage">
+      <div class="card">
+        <div class="card-head">
+          <span class="icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffb27a" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/></svg></span>
+          <div>
+            <h4>Tire Pressure Check</h4>
+            <p>Tues cold morning could drop pressure by ~2 PSI</p>
+          </div>
+        </div>
+        <button class="details-btn" type="button"><span>Details</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg></button>
+        <div class="details-panel"><div>Check before Tuesday's drive — front tires drop first. <a href="#tire-guide">Tire guide ›</a></div></div>
+      </div>
+      <span class="cursor" aria-hidden="true"></span>
+    </div>
+  </div>
+  <div class="steps"><span>1 · Glance</span><span>2 · Tap Details</span><span>3 · One card at a time</span></div>
+  <button class="replay" type="button" onclick="var s=document.getElementById('glanceStage');var c=s.cloneNode(true);s.parentNode.replaceChild(c,s);">Replay animation</button>
+  <p class="note">Loops on its own — no tapping needed to see how it works.</p>
+</div>

@@ -1,0 +1,99 @@
+{
+  "negatives": [
+    {
+      "expect_weak": true,
+      "id": "neg-plush-bunny",
+      "query": "plush bunny card, blush pink, HuggleHaven-style"
+    },
+    {
+      "expect_weak": true,
+      "id": "neg-invoice",
+      "query": "invoice spreadsheet quarterly totals overdue column"
+    },
+    {
+      "expect_weak": true,
+      "id": "neg-k8s",
+      "query": "Kubernetes YAML deployment manifest container port"
+    }
+  ],
+  "positives": [
+    {
+      "acceptable": [
+        "side-polaroid-family",
+        "photo-polaroid",
+        "polaroid-stack"
+      ],
+      "expected": "side-polaroid-family",
+      "id": "pos-polaroid",
+      "kind": "template",
+      "query": "polaroid family photo card"
+    },
+    {
+      "acceptable": [
+        "verse-paper-clean"
+      ],
+      "expected": "verse-paper-clean",
+      "id": "pos-psalm-no-photo",
+      "kind": "template",
+      "query": "Psalm 46:10 Be still and know, no photo, clean paper"
+    },
+    {
+      "acceptable": [
+        "editorial-fall-festival"
+      ],
+      "expected": "editorial-fall-festival",
+      "id": "pos-fall-festival",
+      "kind": "template",
+      "query": "fall festival autumn event date time harvest"
+    },
+    {
+      "acceptable": [
+        "clean-pastor-quote",
+        "side-pastor-quote",
+        "cg-photo-sermon"
+      ],
+      "expected": "side-pastor-quote",
+      "id": "pos-pastor-quote",
+      "kind": "template",
+      "query": "pastor quote portrait photo Sunday message"
+    },
+    {
+      "acceptable": [
+        "editorial-prayer-night",
+        "side-worship-night"
+      ],
+      "expected": "side-worship-night",
+      "id": "pos-worship-night",
+      "kind": "template",
+      "query": "worship night event evening music gathering"
+    },
+    {
+      "acceptable": [
+        "polaroid"
+      ],
+      "expected": "polaroid",
+      "id": "pos-treatment-polaroid",
+      "kind": "treatment",
+      "query": "instant photo mat caption space polaroid treatment"
+    },
+    {
+      "acceptable": [
+        "photo-arch-matte"
+      ],
+      "expected": "photo-arch-matte",
+      "id": "pos-element-arch",
+      "kind": "element",
+      "query": "arch photo window narrow mat frame person place"
+    },
+    {
+      "acceptable": [
+        "brand_hearth"
+      ],
+      "expected": "brand_hearth",
+      "id": "pos-brand-hearth",
+      "kind": "brand",
+      "query": "warm bakery brand hearth crumb welcoming morning"
+    }
+  ],
+  "note": "2026-11-08: acceptable sets widened when the template pool grew 20 -> 57 ids (canonical registry wired in as a reuse source). photo-polaroid / polaroid-stack are polaroid photo templates; cg-photo-sermon is a Sunday sermon photo template \u2014 all legitimate top hits for their briefs, not random matches."
+}

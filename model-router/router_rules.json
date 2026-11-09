@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "defaults": {"model": "gpt-6-luna", "effort": "low"},
+  "est_cost_usd": {
+    "script": 0.0,
+    "gpt-6-luna-low": 0.001,
+    "gpt-6-luna-medium": 0.003,
+    "spark-muse-code": 0.0,
+    "wonder-muse-code-planning": 0.0
+  },
+  "rules": [
+    {"match": {"task_type": "trivial-check"}, "model": "script", "effort": "none",
+     "reason": "trivial check — deterministic $0 script"},
+    {"match": {"task_type": "planning"}, "model": "wonder-muse-code", "effort": "planning",
+     "reason": "planning — Wonder (Muse Code, planning only)"},
+    {"match": {"task_type": "grilling"}, "model": "spark-muse-code", "effort": "medium",
+     "reason": "grilling — Spark in Muse Code"},
+    {"match": {"task_type": "implementing"}, "model": "spark-muse-code", "effort": "medium",
+     "reason": "implementing — Spark in Muse Code"},
+    {"match": {"task_type": "file-tool"}, "model": "spark-muse-code", "effort": "medium",
+     "reason": "file tool work — Spark in Muse Code"},
+    {"match": {"task_type": "final-qa"}, "model": "spark-muse-code", "effort": "high",
+     "reason": "final QA — Spark in Muse Code"},
+    {"match": {"complexity": "hard"}, "model": "gpt-6-luna", "effort": "medium",
+     "reason": "hard complexity — Luna medium"},
+    {"match": {"low_failed": true}, "model": "gpt-6-luna", "effort": "medium",
+     "reason": "low failed retry — Luna medium"},
+    {"match": {"complexity": "routine"}, "model": "gpt-6-luna", "effort": "low",
+     "reason": "routine small draft — Luna low"}
+  ],
+  "deny": {
+    "terra": "backup-only",
+    "gemini": "retired-reliability"
+  }
+}
