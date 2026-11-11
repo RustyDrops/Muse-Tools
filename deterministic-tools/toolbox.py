@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import draft_tools
+import improve_tools
 import python_tools
 import validate_tools
 
@@ -21,7 +22,7 @@ def _usage():
     return ("usage: toolbox.py <command> <args> [--json] [--out PATH]\n"
             "commands: peek grep diff stats outline strip toc check-url "
             "syntax imports validate scaffold diagram canary health "
-            "estimate-cost")
+            "estimate-cost stamp drift branch-scope rejected")
 
 
 def _take(args, i):
@@ -173,6 +174,65 @@ def dispatch(cmd, args):
                                 "[--output-tokens N] [--rates PATH]"}
         return validate_tools.estimate_cost(args[0], output_tokens=out_n,
                                             rates=rates)
+    if cmd == "stamp":
+        _has(args, "--json")
+        force = _has(args, "--force")
+        if len(args) < 2:
+            return 2, {"error": "usage: stamp <out.json> <path> [path...] "
+                                "[--force]"}
+        return improve_tools.stamp(args[0], args[1:], force=force)
+    if cmd == "drift":
+        _has(args, "--json")
+        if len(args) != 1:
+            return 2, {"error": "usage: drift <stamp.json>"}
+        return improve_tools.drift(args[0])
+    if cmd == "branch-scope":
+        _has(args, "--json")
+        base = None
+        if "--base" in args:
+            i = args.index("--base")
+            if i + 1 >= len(args):
+                return 2, {"error": "branch-scope: --base needs a REF"}
+            base = _take(args, i)
+        if len(args) != 1:
+            return 2, {"error": "usage: branch-scope <repo> [--base REF]"}
+        return improve_tools.branch_scope(args[0], base=base)
+    if cmd == "rejected":
+        _has(args, "--json")
+        project = None
+        if "--project" in args:
+            i = args.index("--project")
+            if i + 1 >= len(args):
+                return 2, {"error": "rejected: --project needs a SLUG"}
+            project = _take(args, i)
+        store = None
+        if "--store" in args:
+            i = args.index("--store")
+            if i + 1 >= len(args):
+                return 2, {"error": "rejected: --store needs a PATH"}
+            store = _take(args, i)
+        if not args:
+            return 2, {"error": "usage: rejected add|list|check ..."}
+        op, rest = args[0], args[1:]
+        if op == "add":
+            if len(rest) != 2:
+                return 2, {"error": 'usage: rejected add "<item>" '
+                                    '"<reason>" [--project SLUG]'}
+            return improve_tools.rejected("add", item=rest[0],
+                                          reason=rest[1],
+                                          project=project, store=store)
+        if op == "list":
+            if rest:
+                return 2, {"error": "usage: rejected list [--project SLUG]"}
+            return improve_tools.rejected("list", project=project,
+                                          store=store)
+        if op == "check":
+            if len(rest) != 1:
+                return 2, {"error": 'usage: rejected check "<text>" '
+                                    "[--project SLUG]"}
+            return improve_tools.rejected("check", item=rest[0],
+                                          project=project, store=store)
+        return 2, {"error": f"rejected: unknown op: {op}"}
     return 2, {"error": f"unknown command: {cmd}\n{_usage()}"}
 
 

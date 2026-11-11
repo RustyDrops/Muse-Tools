@@ -8,6 +8,7 @@ Use when a conversation is getting long and the work should continue in a fresh 
 >
 > - Decisions made, with the exact wording of any rule the user set.
 > - Open items, with who owes what and what would unblock each one.
+> - Things considered and rejected, with the one-line reason for each — judgments, not user closures, recorded so they aren't re-audited or re-proposed next time.
 > - Verified facts (numbers, dates, file paths) — only ones checked against a source.
 > - What was explicitly declined or closed, so it isn't re-raised.
 > - File paths of anything built, and what still needs doing to each.

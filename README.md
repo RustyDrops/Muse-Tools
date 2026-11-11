@@ -72,13 +72,16 @@ Small, exact tools that do one job and show their work. No guessing, no
 re-reading whole files.
 
 - **Deterministic toolbox** ([`deterministic-tools/`](deterministic-tools/))
-  Sixteen little commands: peek at exact lines, search one file, compare two
+  Twenty little commands: peek at exact lines, search one file, compare two
   drafts, count words and get a file fingerprint, outline the functions in a
   script, strip out comments, list the headings in a document, check a link
   still works, check code for typos, list what a script needs, check data
   against a shape, sketch a test, draw a simple diagram, run a quick safety
-  check, check the computer's health, and estimate how long a piece of text
-  is. Every answer is short and to the point.
+  check, check the computer's health, estimate how long a piece of text
+  is, stamp the exact state a work brief was written against, check that
+  stamp later for drift, work out what a code branch actually changed and
+  what touches it, and keep a log of ideas already considered and rejected
+  so they don't come back. Every answer is short and to the point.
 - **QA suite** ([`qa-suite/`](qa-suite/))
   Checks work before it's delivered: does the code pass its tests, does the
   text fit inside its box, is the sound the right loudness, is the slide

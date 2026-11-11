@@ -26,6 +26,10 @@ Purpose: start a fresh side chat with this file only — no history re-read.
 ## Open items
 - (what is still undecided, who decides)
 
+## Considered and rejected
+- (finding or approach considered, one-line reason it was rejected —
+  so it is not re-audited or re-proposed next time)
+
 ## Do NOT reopen
 - (closed items, only if the user explicitly closed them)
 

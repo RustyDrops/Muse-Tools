@@ -4,7 +4,7 @@ Stdlib-only local toolbox. Every command prints ONE short JSON object.
 Never pastes a whole file into chat. $0, no LLM calls, no installs.
 Only network: `check-url` (HTTP HEAD).
 
-## Commands (16)
+## Commands (20)
 
 | Command | Args |
 |---|---|
@@ -24,6 +24,10 @@ Only network: `check-url` (HTTP HEAD).
 | `canary` | `<pyfile> [--timeout 10]` — run workspace-only `.py` with timeout; first 6 lines only |
 | `health` | no args — mem/loadavg/disk/cgroup; best-effort, always exit 0 |
 | `estimate-cost` | `<path> [--output-tokens N] [--rates PATH]` — `cost_usd: null` unless `--rates` given |
+| `stamp` | `<out.json> <path> [path...] [--force]` — record per-file SHA-256/size/mtime + git repo/HEAD a brief was written against |
+| `drift` | `<stamp.json>` — re-check a stamp; exit 1 + changed paths/reasons on drift, 0 when clean |
+| `branch-scope` | `<repo> [--base REF]` — files changed since merge-base with base + direct importers/callers of each (branch-audit scope) |
+| `rejected` | `add "<item>" "<reason>" / list / check "<text>" [--project SLUG] [--store PATH]` — persistent considered-and-rejected log (default store `~/workspace/handoffs/rejected.jsonl`); `check` exit 0 when a prior rejection matches |
 
 Validator subset: `type required properties items enum minimum maximum
 minLength maxLength pattern`.
