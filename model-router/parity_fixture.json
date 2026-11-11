@@ -1,0 +1,453 @@
+{
+ "generated_from": "staged generic model_router.pick BEFORE the single-source refactor (2026-11-10)",
+ "cases": [
+  {
+   "input": {
+    "task_type": "draft",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "light",
+    "effort": "low",
+    "reason": "routine small draft \u2014 light model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "draft",
+    "size": "m",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "light",
+    "effort": "low",
+    "reason": "routine small draft \u2014 light model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "DRAFT",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "light",
+    "effort": "low",
+    "reason": "routine small draft \u2014 light model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "light",
+    "effort": "low",
+    "reason": "routine small draft \u2014 light model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": null,
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "light",
+    "effort": "low",
+    "reason": "routine small draft \u2014 light model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "draft",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": true
+   },
+   "expected": {
+    "model": "standard",
+    "effort": "medium",
+    "reason": "low failed retry \u2014 standard model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "draft",
+    "size": "m",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "standard",
+    "effort": "medium",
+    "reason": "hard complexity \u2014 standard model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "draft",
+    "size": "s",
+    "complexity": "hard",
+    "low_failed": true
+   },
+   "expected": {
+    "model": "standard",
+    "effort": "medium",
+    "reason": "hard complexity \u2014 standard model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "draft",
+    "size": "s",
+    "complexity": "other",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "light",
+    "effort": "low",
+    "reason": "routine small draft \u2014 light model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "planning",
+    "size": "l",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "planner",
+    "effort": "planning",
+    "reason": "planning \u2014 strong planning model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "planning",
+    "size": "l",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "planner",
+    "effort": "planning",
+    "reason": "planning \u2014 strong planning model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "planning",
+    "size": "l",
+    "complexity": "routine",
+    "low_failed": true
+   },
+   "expected": {
+    "model": "planner",
+    "effort": "planning",
+    "reason": "planning \u2014 strong planning model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "grilling",
+    "size": "m",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "medium",
+    "reason": "grilling \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "grilling",
+    "size": "m",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "medium",
+    "reason": "grilling \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "implementing",
+    "size": "m",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "medium",
+    "reason": "implementing \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "implementing",
+    "size": "m",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "medium",
+    "reason": "implementing \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "file-tool",
+    "size": "m",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "medium",
+    "reason": "file tool work \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "file-tool",
+    "size": "m",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "medium",
+    "reason": "file tool work \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "final-qa",
+    "size": "m",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "high",
+    "reason": "final QA \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "final-qa",
+    "size": "m",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "worker",
+    "effort": "high",
+    "reason": "final QA \u2014 worker model",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "trivial-check",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "lint",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "test-run",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "file-exists",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "format-check",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "trivial",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "lint-check",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "test",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "format",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "LINT",
+    "size": "s",
+    "complexity": "routine",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "lint",
+    "size": "s",
+    "complexity": "hard",
+    "low_failed": true
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  },
+  {
+   "input": {
+    "task_type": "test",
+    "size": "s",
+    "complexity": "hard",
+    "low_failed": false
+   },
+   "expected": {
+    "model": "script",
+    "effort": "none",
+    "reason": "trivial check \u2014 deterministic $0 script",
+    "est_cost_usd": 0.0
+   }
+  }
+ ]
+}

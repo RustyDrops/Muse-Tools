@@ -50,6 +50,20 @@ def test_trivial_uses_script(trivial):
     assert got["est_cost_usd"] == 0.0
 
 
+def _parity_cases():
+    with open(os.path.join(HERE, "parity_fixture.json")) as f:
+        return json.load(f)["cases"]
+
+
+@pytest.mark.parametrize("case", _parity_cases(),
+                         ids=[f"case{i}" for i in range(len(_parity_cases()))])
+def test_parity_with_before_refactor_fixture(case):
+    """Decisions identical to pick() before the single-source refactor."""
+    i = case["input"]
+    got = pick(i["task_type"], i["size"], i["complexity"], i["low_failed"])
+    assert got == case["expected"]
+
+
 def test_models_are_generic_slots_only():
     rules = load_rules()
     allowed = {"light", "standard", "planner", "worker", "script"}

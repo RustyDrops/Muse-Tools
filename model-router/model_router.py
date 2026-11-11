@@ -28,36 +28,46 @@ def est_cost(rules, model, effort):
     return table.get(f"{model}-{effort}", table.get(model, 0.0))
 
 
+def _matches(match, t, complexity, low_failed):
+    """True when every condition in a rule's `match` block holds.
+
+    Supported conditions: `task_type` (exact), `task_type_in` (any of),
+    `complexity` (exact), `low_failed` (boolean). Rule order in
+    router_rules.json is the precedence order — the first matching
+    rule wins, so the JSON is the single source of routing decisions.
+    """
+    for key, want in match.items():
+        if key == "task_type":
+            if t != want:
+                return False
+        elif key == "task_type_in":
+            if t not in want:
+                return False
+        elif key == "complexity":
+            if complexity != want:
+                return False
+        elif key == "low_failed":
+            if bool(low_failed) != bool(want):
+                return False
+        else:
+            return False
+    return True
+
+
 def pick(task_type, size, complexity, low_failed=False):
+    """Execute router_rules.json: first matching rule, else defaults."""
     rules = load_rules()
     t = (task_type or "").lower()
-
-    trivial = {"trivial-check", "lint", "test-run", "file-exists", "format-check",
-               "trivial", "lint-check", "test", "format"}
-    if t in trivial:
-        return {"model": "script", "effort": "none",
-                "reason": "trivial check — deterministic $0 script",
-                "est_cost_usd": 0.0}
-    if t == "planning":
-        return {"model": "planner", "effort": "planning",
-                "reason": "planning — strong planning model",
-                "est_cost_usd": est_cost(rules, "planner", "planning")}
-    if t in ("grilling", "implementing", "file-tool", "final-qa"):
-        effort = "high" if t == "final-qa" else "medium"
-        reason = {"grilling": "grilling — worker model",
-                  "implementing": "implementing — worker model",
-                  "file-tool": "file tool work — worker model",
-                  "final-qa": "final QA — worker model"}[t]
-        return {"model": "worker", "effort": effort, "reason": reason,
-                "est_cost_usd": est_cost(rules, "worker", effort)}
-    if complexity == "hard" or low_failed:
-        r = ("hard complexity — standard model" if complexity == "hard"
-             else "low failed retry — standard model")
-        return {"model": "standard", "effort": "medium", "reason": r,
-                "est_cost_usd": est_cost(rules, "standard", "medium")}
-    return {"model": "light", "effort": "low",
-            "reason": "routine small draft — light model",
-            "est_cost_usd": est_cost(rules, "light", "low")}
+    for rule in rules.get("rules", []):
+        if _matches(rule.get("match", {}), t, complexity, low_failed):
+            return {"model": rule["model"], "effort": rule["effort"],
+                    "reason": rule["reason"],
+                    "est_cost_usd": est_cost(rules, rule["model"],
+                                             rule["effort"])}
+    d = rules["defaults"]
+    return {"model": d["model"], "effort": d["effort"],
+            "reason": d["reason"],
+            "est_cost_usd": est_cost(rules, d["model"], d["effort"])}
 
 
 def cmd_route(args):
