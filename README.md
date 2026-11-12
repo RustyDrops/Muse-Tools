@@ -120,6 +120,13 @@ Little helpers that keep the work organised.
   a link, and an icon. Readable in about three seconds, with more detail
   underneath only if you want it. Best used for every notification that isn't
   a direct reply.
+- **Design-system styling setup** ([`prompts/05-design-system-styling-setup.md`](prompts/05-design-system-styling-setup.md))
+  A one-time prompt that has Muse build the same test card in a few real
+  design systems — [Mantine](https://mantine.dev),
+  [Astryx by Meta](https://github.com/meta/astryx), [shadcn/ui](https://ui.shadcn.com) —
+  measure what each costs, then set up *your own* styling (your colors,
+  corners, and shadows) as one reusable theme file, so every tool Muse
+  builds you looks like family.
 
 ## 🧰 Everyday Basics
 
