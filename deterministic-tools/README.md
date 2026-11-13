@@ -4,7 +4,7 @@ Stdlib-only local toolbox. Every command prints ONE short JSON object.
 Never pastes a whole file into chat. $0, no LLM calls, no installs.
 Only network: `check-url` (HTTP HEAD).
 
-## Commands (20)
+## Commands (26)
 
 | Command | Args |
 |---|---|
@@ -28,6 +28,13 @@ Only network: `check-url` (HTTP HEAD).
 | `drift` | `<stamp.json>` — re-check a stamp; exit 1 + changed paths/reasons on drift, 0 when clean |
 | `branch-scope` | `<repo> [--base REF]` — files changed since merge-base with base + direct importers/callers of each (branch-audit scope) |
 | `rejected` | `add "<item>" "<reason>" / list / check "<text>" [--project SLUG] [--store PATH]` — persistent considered-and-rejected log (default store `~/workspace/handoffs/rejected.jsonl`); `check` exit 0 when a prior rejection matches |
+| `snapshot` | `<target> <out.json> [--force]` — Hallmark pack: inventory before a redesign — links, ids, headings, images, fields, handlers, test hooks + per-file SHA-256 |
+| `kept` | `<before.json> <target> [--dropped ITEM ...]` — Hallmark pack: FAIL on anything the original had that the new version lost (links/fields/handlers/ids/hooks), WARN on headings/images, unless recorded as dropped |
+| `words` | `<target> [--surface web\|tool\|card\|social\|glance] [--budget N]` — Hallmark pack: word-budget lint per surface (web 80/section, 450 total; card 30; glance 20; social 35/60; tool 120/900) |
+| `gatecheck` | `<target> [--surface S] [--stage hero] [--stamp PATH]` — Hallmark pack: tiered gates — Floor never waives (a Floor waiver is rejected), Reflex waivable on the record with guard + specific reason (24+ chars) read from the file/stamp, Finish answered and never blocks. Gates are scoped by surface: web-only bans (tracked caps, purple-blue gradient) are Reflex, not Floor, on social/card |
+| `deal` | `<themes-dir> [--log PATH] [--prompt TEXT]` — Hallmark pack: deal 3 themes clearing the last 3 in the rotation log. A theme is a material (one `.md` file, ≤8 KB flagged), never a plan; a build reads exactly one |
+| `rotation` | `add\|check\|list --log PATH [--theme T --shape S --hero H --nav N --footer F --signature X] [--waived GATE]` — Hallmark pack: mirror test — a candidate sharing 4+ axes with a recent build FAILs; same gate waived in 3 straight entries is flagged as a house style |
+| `brief` | `<out-stamp> --surface S --job J --shape S --theme T --signature X --real R --pictures P --absent A [--critique "P5 H4 E5 S3 R5 V4"] [--theme-file PATH] [--waive TEXT]` — Hallmark pack: Picks block + decision stamp. Material inventory is mandatory — `absent` must be declared (write `none`); facts are never inferred. Stamp records the hero-first stage plan (hero only → gatecheck --stage hero → fresh-context review → the rest) and the pre-emit critique; a score under 3 or a theme file over 8 KB exits 1 |
 
 Validator subset: `type required properties items enum minimum maximum
 minLength maxLength pattern`.
@@ -63,3 +70,4 @@ python toolbox.py check-url https://example.com
   `qa-suite/checks_code.py`, which is reused by import path only, never copied).
 - `estimate-cost` never invents rates: without `--rates`, `cost_usd` is `null`.
 - `canary` refuses paths outside `~/workspace` (exit 2) and runs `.py` only.
+- Hallmark pack (`snapshot kept words gatecheck deal rotation brief`, in `hallmark_tools.py`): the mechanics of [Nutlope/hallmark](https://github.com/Nutlope/hallmark) (MIT) re-implemented as deterministic code — tiered gates, before/kept preservation, word budgets, theme dealing + rotation, and the brief/decision stamp. Scoped by surface on purpose: Hallmark's web bans are not applied as Floor to social graphics, where a badge pill / tracked label is a legitimate prefab. Examples: `python toolbox.py snapshot page.html before.json` · `python toolbox.py kept before.json page-v2.html` · `python toolbox.py gatecheck card.html --surface social` · `python toolbox.py words page.html --surface web`.

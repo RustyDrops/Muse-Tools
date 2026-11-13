@@ -13,6 +13,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import draft_tools
+import hallmark_tools
 import improve_tools
 import python_tools
 import validate_tools
@@ -22,7 +23,8 @@ def _usage():
     return ("usage: toolbox.py <command> <args> [--json] [--out PATH]\n"
             "commands: peek grep diff stats outline strip toc check-url "
             "syntax imports validate scaffold diagram canary health "
-            "estimate-cost stamp drift branch-scope rejected")
+            "estimate-cost stamp drift branch-scope rejected "
+            "snapshot kept words gatecheck deal rotation brief")
 
 
 def _take(args, i):
@@ -233,6 +235,154 @@ def dispatch(cmd, args):
             return improve_tools.rejected("check", item=rest[0],
                                           project=project, store=store)
         return 2, {"error": f"rejected: unknown op: {op}"}
+    if cmd == "snapshot":
+        _has(args, "--json")
+        force = _has(args, "--force")
+        if len(args) != 2:
+            return 2, {"error": "usage: snapshot <target> <out.json> "
+                                "[--force]"}
+        return hallmark_tools.snapshot(args[0], args[1], force=force)
+    if cmd == "kept":
+        _has(args, "--json")
+        dropped = []
+        while "--dropped" in args:
+            i = args.index("--dropped")
+            if i + 1 >= len(args):
+                return 2, {"error": "kept: --dropped needs an ITEM"}
+            dropped.append(_take(args, i))
+        if len(args) != 2:
+            return 2, {"error": "usage: kept <before.json> <target> "
+                                "[--dropped ITEM ...]"}
+        return hallmark_tools.kept(args[0], args[1], dropped=dropped)
+    if cmd == "words":
+        _has(args, "--json")
+        surface = "web"
+        if "--surface" in args:
+            i = args.index("--surface")
+            if i + 1 >= len(args):
+                return 2, {"error": "words: --surface needs a value"}
+            surface = _take(args, i)
+        budget = None
+        if "--budget" in args:
+            i = args.index("--budget")
+            if i + 1 >= len(args):
+                return 2, {"error": "words: --budget needs N"}
+            budget = _take(args, i)
+        if len(args) != 1:
+            return 2, {"error": "usage: words <target> [--surface S] "
+                                "[--budget N]"}
+        return hallmark_tools.words(args[0], surface=surface,
+                                    budget=budget)
+    if cmd == "gatecheck":
+        _has(args, "--json")
+        surface = "web"
+        if "--surface" in args:
+            i = args.index("--surface")
+            if i + 1 >= len(args):
+                return 2, {"error": "gatecheck: --surface needs a value"}
+            surface = _take(args, i)
+        stage = None
+        if "--stage" in args:
+            i = args.index("--stage")
+            if i + 1 >= len(args):
+                return 2, {"error": "gatecheck: --stage needs a value"}
+            stage = _take(args, i)
+        stamp_path = None
+        if "--stamp" in args:
+            i = args.index("--stamp")
+            if i + 1 >= len(args):
+                return 2, {"error": "gatecheck: --stamp needs a PATH"}
+            stamp_path = _take(args, i)
+        if len(args) != 1:
+            return 2, {"error": "usage: gatecheck <target> "
+                                "[--surface S] [--stage hero] "
+                                "[--stamp PATH]"}
+        return hallmark_tools.gatecheck(args[0], surface=surface,
+                                        stage=stage,
+                                        stamp_path=stamp_path)
+    if cmd == "deal":
+        _has(args, "--json")
+        log = None
+        if "--log" in args:
+            i = args.index("--log")
+            if i + 1 >= len(args):
+                return 2, {"error": "deal: --log needs a PATH"}
+            log = _take(args, i)
+        prompt = ""
+        if "--prompt" in args:
+            i = args.index("--prompt")
+            if i + 1 >= len(args):
+                return 2, {"error": "deal: --prompt needs TEXT"}
+            prompt = _take(args, i)
+        if len(args) != 1:
+            return 2, {"error": "usage: deal <themes-dir> [--log PATH] "
+                                "[--prompt TEXT]"}
+        return hallmark_tools.deal(args[0], log_path=log, prompt=prompt)
+    if cmd == "rotation":
+        _has(args, "--json")
+        log = None
+        if "--log" in args:
+            i = args.index("--log")
+            if i + 1 >= len(args):
+                return 2, {"error": "rotation: --log needs a PATH"}
+            log = _take(args, i)
+        entry = {}
+        for axis in hallmark_tools.AXES:
+            flag = f"--{axis}"
+            if flag in args:
+                i = args.index(flag)
+                if i + 1 >= len(args):
+                    return 2, {"error": f"rotation: {flag} needs TEXT"}
+                entry[axis] = _take(args, i)
+        waived = None
+        if "--waived" in args:
+            i = args.index("--waived")
+            if i + 1 >= len(args):
+                return 2, {"error": "rotation: --waived needs a GATE"}
+            waived = _take(args, i)
+        if not log or not args:
+            return 2, {"error": "usage: rotation add|check|list "
+                                "--log PATH [--theme T --shape S "
+                                "--hero H --nav N --footer F "
+                                "--signature X] [--waived GATE]"}
+        if waived:
+            entry["waived"] = waived
+        return hallmark_tools.rotation(args[0], log, entry=entry or None)
+    if cmd == "brief":
+        _has(args, "--json")
+        force = _has(args, "--force")
+        opts = {}
+        for key in ("surface", "job", "shape", "theme", "signature",
+                    "real", "pictures", "absent", "critique",
+                    "theme-file"):
+            flag = f"--{key}"
+            if flag in args:
+                i = args.index(flag)
+                if i + 1 >= len(args):
+                    return 2, {"error": f"brief: {flag} needs TEXT"}
+                opts[key] = _take(args, i)
+        waivers = []
+        while "--waive" in args:
+            i = args.index("--waive")
+            if i + 1 >= len(args):
+                return 2, {"error": "brief: --waive needs TEXT"}
+            waivers.append(_take(args, i))
+        if len(args) != 1:
+            return 2, {"error": "usage: brief <out-stamp> --surface S "
+                                "--job J --shape S --theme T "
+                                "--signature X --real R --pictures P "
+                                "--absent A [--critique 'P5 H4 ...'] "
+                                "[--theme-file PATH] [--waive TEXT] "
+                                "[--force]"}
+        return hallmark_tools.brief(
+            args[0], surface=opts.get("surface", ""), job=opts.get("job", ""),
+            shape=opts.get("shape", ""), theme=opts.get("theme", ""),
+            signature=opts.get("signature", ""), real=opts.get("real", ""),
+            pictures=opts.get("pictures", ""),
+            absent=opts.get("absent", ""),
+            critique=opts.get("critique", ""),
+            theme_file=opts.get("theme-file"), waivers=waivers,
+            force=force)
     return 2, {"error": f"unknown command: {cmd}\n{_usage()}"}
 
 
