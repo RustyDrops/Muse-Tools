@@ -87,6 +87,24 @@ re-reading whole files.
   text fit inside its box, is the sound the right loudness, is the slide
   centred? If something's wrong, it says exactly how wrong, in numbers.
 
+## 🎬 Motion
+
+Tools and rules for making short animations that actually move well.
+
+- **[HyperFrames](https://github.com/heygen-com/hyperframes)**
+  Write one HTML page, get a video out. Built for agents, with a built-in
+  check that flags lint, motion, and contrast problems before you render.
+  Renders are repeatable — the same page gives the same video, byte for
+  byte. The fast path for standalone animations; a full project framework
+  like Remotion still suits complex work better.
+- **Motion Playbook** ([`motion-playbook/`](motion-playbook/))
+  The rules that make an animation good, each one checked with a number:
+  one beat grid drives every hop and cut, motion written as numbers
+  (a spring's damping ratio, not "bouncy"), the hero measured at least
+  170 px wide, and a pure `renderAt(t)` function so any frame can be
+  redrawn alone and compared pixel for pixel. Ships with a worked
+  example film and the QA script that measured it.
+
 ## 💸 Penny Wise
 
 Tools that keep an eye on the bill.

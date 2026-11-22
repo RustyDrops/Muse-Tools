@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Playbook Film — Crate Hops</title>
+<style>
+  html, body { margin:0; padding:0; background:#FBFAF6; }
+  canvas { display:block; width:1920px; height:1080px; }
+</style>
+</head>
+<body>
+<canvas id="film" width="1920" height="1080"></canvas>
+<script>
+"use strict";
+/*
+  Fable 5.2 Motion Playbook — technique test film.
+  Renderer choice: plain Canvas 2D (no Three.js).
+  Why: Three.js via CDN is unreliable headless on this CPU VM (network +
+  WebGL/swiftshader overhead for a flat mascot shot). Canvas 2D is fully
+  self-contained, deterministic, and renders fast at 1920x1080.
+
+  Contract:
+    window.renderAt(t) draws exactly time t (seconds, 0 <= t < 8).
+    It is a PURE function of t: no clocks, no Math.random, no state
+    carried between frames (the only write is to the canvas + the
+    read-only-for-consumers window.__mascot measurement box).
+    window.__ready === true only after the script has loaded.
+
+  Score is the clock:
+    120 BPM -> beat = 0.5 s. One landing every 2 beats = every 1.0 s.
+    8 hops in an 8 s loop at 60 fps = 480 frames.
+    Landings fall exactly on t = 1,2,3,4,5,6,7,8(=0) seconds.
+
+  Numbers, not adjectives:
+    Palette  bg #FBFAF6, ink #0E0E10, accent #D97757 (mascot only).
+    Mascot base size 220 x 190 px.
+    Squash    crouch  1.20 x 0.75
+              takeoff 0.85 x 1.28
+              landing 1.25 x 0.75
+    Landing settle is a spring with damping ratio zeta = 0.5,
+    omega = 18 rad/s, damped frequency wd = omega*sqrt(1-zeta^2).
+
+  Bans honoured: no glow orbs, no purple gradients, no on-screen text.
+*/
+
+const W = 1920, H = 1080, DURATION = 8, FPS = 60;
+const BG = "#FBFAF6", INK = "#0E0E10", ACCENT = "#D97757";
+const FLOOR_Y = 900;                 // top surface of the floor, px
+const BASE_W = 220, BASE_H = 190;    // mascot base size, px
+
+// Surfaces: index 0 = floor start, 1..4 = crates of rising height, then back.
+const CRATES = [
+  { x: 560,  w: 240, h: 120 },
+  { x: 860,  w: 240, h: 240 },
+  { x: 1160, w: 240, h: 360 },
+  { x: 1500, w: 260, h: 480 }
+];
+const STOPS = [
+  { x: 260,            top: FLOOR_Y },                    // floor (start)
+  { x: CRATES[0].x + CRATES[0].w/2, top: FLOOR_Y - CRATES[0].h },
+  { x: CRATES[1].x + CRATES[1].w/2, top: FLOOR_Y - CRATES[1].h },
+  { x: CRATES[2].x + CRATES[2].w/2, top: FLOOR_Y - CRATES[2].h },
+  { x: CRATES[3].x + CRATES[3].w/2, top: FLOOR_Y - CRATES[3].h },
+  { x: CRATES[2].x + CRATES[2].w/2, top: FLOOR_Y - CRATES[2].h },
+  { x: CRATES[1].x + CRATES[1].w/2, top: FLOOR_Y - CRATES[1].h },
+  { x: CRATES[0].x + CRATES[0].w/2, top: FLOOR_Y - CRATES[0].h },
+  { x: 260,            top: FLOOR_Y }                     // floor (loop point)
+];
+
+const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
+const lerp = (a, b, v) => a + (b - a) * v;
+const smooth = v => { v = clamp01(v); return v * v * (3 - 2 * v); };
+
+// Spring settle after a landing: damping ratio 0.5.
+// Returns squash multipliers; at dt=0 exactly the landing squash 1.25 x 0.75.
+function springSquash(dt) {
+  const zeta = 0.5, omega = 18;
+  const wd = omega * Math.sqrt(1 - zeta * zeta);
+  const env = Math.exp(-zeta * omega * dt) * Math.cos(wd * dt);
+  return { sx: 1 + 0.25 * env, sy: 1 - 0.25 * env };
+}
+
+// Pure pose function: everything about the mascot at time t.
+function poseAt(t) {
+  t = ((t % DURATION) + DURATION) % DURATION;
+  const seg = Math.min(7, Math.floor(t));   // hop segment 0..7
+  const u = t - seg;                        // 0..1 inside the hop
+  const src = STOPS[seg], dst = STOPS[seg + 1];
+
+  let cx, bottom, sx, sy;
+  if (u < 0.25) {
+    // On the source surface: spring settle (0..0.15) blending into crouch.
+    cx = src.x; bottom = src.top;
+    const sp = springSquash(u);
+    const crouchMix = smooth((u - 0.13) / 0.12);
+    sx = lerp(sp.sx, 1.20, crouchMix);
+    sy = lerp(sp.sy, 0.75, crouchMix);
+  } else {
+    // Airborne (0.25..1): closed-form parabola from src to dst, v=1 at landing.
+    const v = (u - 0.25) / 0.75;
+    const arc = 170 + 0.35 * Math.abs(dst.top - src.top);
+    cx = lerp(src.x, dst.x, v);                            // linear x: constant travel speed
+    bottom = lerp(src.top, dst.top, v) - Math.sin(Math.PI * v) * arc;
+    // Stretch at takeoff (0.85 x 1.28), near-normal mid-flight, pre-land stretch.
+    const early = v < 0.25 ? (1 - v / 0.25) : 0;           // takeoff stretch tail
+    const late = v > 0.85 ? (v - 0.85) / 0.15 : 0;         // pre-landing stretch
+    const s = Math.max(early, late);
+    sx = lerp(0.97, 0.85, s);
+    sy = lerp(1.05, 1.28, s);
+  }
+  return { cx, bottom, sx, sy, seg, u };
+}
+
+function drawCrate(ctx, c) {
+  const y = FLOOR_Y - c.h;
+  ctx.save();
+  ctx.globalAlpha = 0.10; ctx.fillStyle = INK;
+  ctx.fillRect(c.x, y, c.w, c.h);
+  ctx.globalAlpha = 1;
+  ctx.strokeStyle = INK; ctx.lineWidth = 6;
+  ctx.strokeRect(c.x, y, c.w, c.h);
+  ctx.beginPath();  // crate cross-brace, plain ink lines
+  ctx.moveTo(c.x, y); ctx.lineTo(c.x + c.w, y + c.h);
+  ctx.moveTo(c.x + c.w, y); ctx.lineTo(c.x, y + c.h);
+  ctx.lineWidth = 3; ctx.stroke();
+  ctx.restore();
+}
+
+function drawMascot(ctx, p) {
+  const w = BASE_W * p.sx, h = BASE_H * p.sy;
+  const cx = p.cx, bottom = p.bottom;
+  const top = bottom - h;
+
+  // Feet (ink), tucked under the body.
+  ctx.fillStyle = INK;
+  const footW = 44, footH = 16;
+  ctx.beginPath(); ctx.ellipse(cx - w * 0.22, bottom - footH / 2 + 4, footW / 2, footH / 2, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + w * 0.22, bottom - footH / 2 + 4, footW / 2, footH / 2, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Ears / nubs (accent), kept inside the body width.
+  ctx.fillStyle = ACCENT;
+  ctx.beginPath(); ctx.ellipse(cx - w * 0.30, top + h * 0.06, 20 * p.sx, 26 * p.sy, -0.3, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + w * 0.30, top + h * 0.06, 20 * p.sx, 26 * p.sy, 0.3, 0, Math.PI * 2); ctx.fill();
+
+  // Body (accent): rounded blob.
+  ctx.beginPath();
+  ctx.ellipse(cx, top + h / 2, w / 2, h / 2, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Belly patch (bg), inside the body.
+  ctx.fillStyle = BG;
+  ctx.beginPath(); ctx.ellipse(cx, top + h * 0.66, w * 0.26, h * 0.22, 0, 0, Math.PI * 2); ctx.fill();
+
+  // Eyes (ink) + mouth (ink arc). Lean into travel direction slightly.
+  const dir = (STOPS[p.seg + 1].x >= STOPS[p.seg].x) ? 1 : -1;
+  const look = p.u >= 0.25 && p.u < 1 ? dir * w * 0.04 : 0;
+  ctx.fillStyle = INK;
+  ctx.beginPath(); ctx.ellipse(cx - w * 0.15 + look, top + h * 0.38, 11, 15 * p.sy, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.ellipse(cx + w * 0.15 + look, top + h * 0.38, 11, 15 * p.sy, 0, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = INK; ctx.lineWidth = 5; ctx.lineCap = "round";
+  ctx.beginPath(); ctx.arc(cx + look, top + h * 0.52, w * 0.07, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+
+  return { x: cx - w / 2, y: top, w, h };
+}
+
+const canvas = document.getElementById("film");
+const ctx = canvas.getContext("2d");
+
+window.renderAt = function (t) {
+  // Background
+  ctx.fillStyle = BG; ctx.fillRect(0, 0, W, H);
+
+  // Floor line + floor fill (ink at low alpha, derived from palette only)
+  ctx.save();
+  ctx.globalAlpha = 0.06; ctx.fillStyle = INK;
+  ctx.fillRect(0, FLOOR_Y, W, H - FLOOR_Y);
+  ctx.restore();
+  ctx.strokeStyle = INK; ctx.lineWidth = 6;
+  ctx.beginPath(); ctx.moveTo(0, FLOOR_Y); ctx.lineTo(W, FLOOR_Y); ctx.stroke();
+
+  for (const c of CRATES) drawCrate(ctx, c);
+
+  const p = poseAt(t);
+
+  // Contact shadow on the surface directly below the mascot.
+  const surfBelow = p.bottom; // shadow sits at the landing surface when grounded,
+  // while airborne it tracks the target/source surface height under cx:
+  let groundY = FLOOR_Y;
+  for (const c of CRATES) {
+    if (p.cx >= c.x && p.cx <= c.x + c.w) groundY = Math.min(groundY, FLOOR_Y - c.h);
+  }
+  const airH = Math.max(0, groundY - p.bottom);
+  const shScale = Math.max(0.35, 1 - airH / 700);
+  ctx.save();
+  ctx.globalAlpha = 0.22 * shScale; ctx.fillStyle = INK;
+  ctx.beginPath();
+  ctx.ellipse(p.cx, groundY + 14, (BASE_W * p.sx / 2) * shScale, 14 * shScale, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+
+  const box = drawMascot(ctx, p);
+  window.__mascot = box;   // measurement hook for QA (not used by drawing)
+};
+
+window.__poseAt = poseAt;
+window.__ready = true;
+
+const live = !new URLSearchParams(location.search).has("render");
+if (live) {
+  const start = performance.now();
+  const tick = now => {
+    window.renderAt(((now - start) / 1000) % DURATION);
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+} else {
+  window.renderAt(0);
+}
+</script>
+</body>
+</html>
