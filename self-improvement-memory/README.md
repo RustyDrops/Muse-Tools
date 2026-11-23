@@ -58,10 +58,15 @@ whose problem is pre-prompt growth, that eats the savings. Our adaptation:
 - Prune an attempt once its lesson has become a standing rule.
 - Track net benefit: bytes saved minus SIM log bytes. Stop if it goes negative.
 
+## Add-on: append-only change logs
+
+`CHANGELOG-METHOD.md` adds a per-file append-only log (suggested by @Rigario, cold-reviewed, adopted) so shrinks are gated against earlier corrections instead of the current file alone — with a fail-closed hash check (`log_gate.py`).
+
 ## Files
 
 - `sim_evaluator.py` — deterministic evaluator + selector (stdlib only)
 - `SIM_TEMPLATE.md` — copy this as your per-topic SIM log
+- `CHANGELOG-METHOD.md` / `log_gate.py` / `LOG_TEMPLATE.md` — the append-only log add-on
 - `example/` — a runnable toy example (one passing, one failing candidate)
 
 ## Run the example
