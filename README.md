@@ -141,6 +141,7 @@ Little helpers that keep the work organised.
 - **Housekeeping prompts — audit, backup, identity, tap choices, rooms** ([`prompts/06-monthly-housekeeping-audit.md`](prompts/06-monthly-housekeeping-audit.md), [`07`](prompts/07-backup-your-companion.md), [`08`](prompts/08-identity-and-soul-setup.md), [`09`](prompts/09-tap-choice-replies.md), [`10`](prompts/10-side-chat-rooms-by-role.md))
   Five copy-paste prompts distilled from testing a 74-tip Japanese Muse roundup by [@memuringo7544](https://x.com/memuringo7544/status/2123749668056432769) against a real setup: a monthly goals/tasks audit (not daily — daily becomes nagging), a verified weekly backup of your core files, filling in blank Identity/Soul fields so side chats stop drifting, tap-choice replies, and side-chat rooms by role. Most of the roundup was already covered here; these five earned their place.
 - **Design-system styling setup** ([`prompts/05-design-system-styling-setup.md`](prompts/05-design-system-styling-setup.md))
+- **A month of social posts that doesn't invent anything** ([`prompts/11-month-content-plan-that-doesnt-invent.md`](prompts/11-month-content-plan-that-doesnt-invent.md)) — the viral 5-prompt Instagram-month system, tested and wrapped: no-data branch, Planned vs Proven hooks, verified deadlines, stories scaled to your real time.
   A one-time prompt that has Muse build the same test card in a few real
   design systems — [Mantine](https://mantine.dev),
   [Astryx by Meta](https://github.com/meta/astryx), [shadcn/ui](https://ui.shadcn.com) —
