@@ -1,4 +1,8 @@
-# 6-Role Test — Ember & Memory (FICTIONAL sample client)
+# 6-Role Test
+
+> Note 2026-11-22 (v2.1): the roles were renamed — Lookout, Storyteller,
+> Gatekeeper, Maker, Scheduler, Archivist, Scorekeeper. This file keeps
+> the original test wording. — Ember & Memory (FICTIONAL sample client)
 Date: 2026-11-22. Nothing posted. Nothing scheduled. Draft only.
 
 Client source: existing SocialForge candle-example/brand.json + captions.md #05

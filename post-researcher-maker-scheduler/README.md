@@ -17,12 +17,12 @@ A skill that runs a Facebook Page's recurring posts end to end:
 7. **Analyse** — each post gets one goal metric, checked at 24 hours and
    7 days; a winner/loser line feeds the next batch's research.
 
-**v2 (2026-11-22): six roles, one pipeline.** Scout, Writer, Designer,
-Publisher, Analyst and an Ops Lead who runs a three-question gate
-(facts verified? brand clean? graphics viewed?) before anything schedules.
-Roles, not separate bots — adopted from a tested "6 Grok Bots" social-team
-idea, minus its autopilot publishing, extra scheduler subscription and
-100+ skill-pack install.
+**v2.1 (2026-11-22): seven roles, one pipeline — the Muse-Tools roles.**
+The Lookout (research), the Storyteller (drafts), the Gatekeeper (approval +
+a three-question check: facts verified? brand clean? graphics viewed?),
+the Maker (graphics), the Scheduler, the Archivist (the log) and the
+Scorekeeper (results, fed back into the next batch). Roles in one flow,
+not separate bots — and nothing schedules on autopilot.
 
 First working run: STEMpact, a STEM-resources Page for middle schoolers —
 weekly batch researched and approved Sunday evening, three posts with
