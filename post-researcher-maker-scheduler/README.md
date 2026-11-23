@@ -14,6 +14,15 @@ A skill that runs a Facebook Page's recurring posts end to end:
 5. **Schedule** — posts scheduled on the Page with their graphics, one at a
    time, each receipt checked (`state: scheduled` is the confirmation).
 6. **Log** — the batch and its verdicts recorded on the Page's timeline.
+7. **Analyse** — each post gets one goal metric, checked at 24 hours and
+   7 days; a winner/loser line feeds the next batch's research.
+
+**v2 (2026-11-22): six roles, one pipeline.** Scout, Writer, Designer,
+Publisher, Analyst and an Ops Lead who runs a three-question gate
+(facts verified? brand clean? graphics viewed?) before anything schedules.
+Roles, not separate bots — adopted from a tested "6 Grok Bots" social-team
+idea, minus its autopilot publishing, extra scheduler subscription and
+100+ skill-pack install.
 
 First working run: STEMpact, a STEM-resources Page for middle schoolers —
 weekly batch researched and approved Sunday evening, three posts with
