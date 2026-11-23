@@ -104,6 +104,13 @@ Tools and rules for making short animations that actually move well.
   170 px wide, and a pure `renderAt(t)` function so any frame can be
   redrawn alone and compared pixel for pixel. Ships with a worked
   example film and the QA script that measured it.
+- **Cinematic Video gate** ([`cinematic-video/`](cinematic-video/))
+  No video until a full shooting brief is approved: six categories
+  (duration/framing, people, location, movement by the second, camera
+  work, sound and things to avoid), assembled like a small film crew,
+  one purpose per shot, face/subject priority over scenery, background
+  kept in the background, and the final frame carried over into any
+  follow-up. Tell Muse how to shoot, not "make it look like a movie."
 
 ## 💸 Penny Wise
 
