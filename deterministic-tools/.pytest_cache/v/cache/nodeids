@@ -1,0 +1,11 @@
+[
+  "test_improve_tools.py::test_branch_scope_finds_changes_and_importers",
+  "test_improve_tools.py::test_branch_scope_no_commits_ahead",
+  "test_improve_tools.py::test_branch_scope_not_a_repo",
+  "test_improve_tools.py::test_drift_detects_content_and_missing",
+  "test_improve_tools.py::test_drift_records_git_sha",
+  "test_improve_tools.py::test_rejected_add_list_check",
+  "test_improve_tools.py::test_rejected_project_filter",
+  "test_improve_tools.py::test_stamp_and_drift_clean",
+  "test_improve_tools.py::test_stamp_refuses_overwrite"
+]

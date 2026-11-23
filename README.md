@@ -138,6 +138,8 @@ Little helpers that keep the work organised.
   a link, and an icon. Readable in about three seconds, with more detail
   underneath only if you want it. Best used for every notification that isn't
   a direct reply.
+- **Housekeeping prompts — audit, backup, identity, tap choices, rooms** ([`prompts/06-monthly-housekeeping-audit.md`](prompts/06-monthly-housekeeping-audit.md), [`07`](prompts/07-backup-your-companion.md), [`08`](prompts/08-identity-and-soul-setup.md), [`09`](prompts/09-tap-choice-replies.md), [`10`](prompts/10-side-chat-rooms-by-role.md))
+  Five copy-paste prompts distilled from testing a 74-tip Japanese Muse roundup by [@memuringo7544](https://x.com/memuringo7544/status/2123749668056432769) against a real setup: a monthly goals/tasks audit (not daily — daily becomes nagging), a verified weekly backup of your core files, filling in blank Identity/Soul fields so side chats stop drifting, tap-choice replies, and side-chat rooms by role. Most of the roundup was already covered here; these five earned their place.
 - **Design-system styling setup** ([`prompts/05-design-system-styling-setup.md`](prompts/05-design-system-styling-setup.md))
   A one-time prompt that has Muse build the same test card in a few real
   design systems — [Mantine](https://mantine.dev),
@@ -145,15 +147,6 @@ Little helpers that keep the work organised.
   measure what each costs, then set up *your own* styling (your colors,
   corners, and shadows) as one reusable theme file, so every tool Muse
   builds you looks like family.
-
-## 📣 Page Posts
-
-- **[Post Researcher, Maker & Scheduler](post-researcher-maker-scheduler/)**
-  Runs a Facebook Page's weekly posts end to end: research (every date and
-  deadline verified on the source page, never a snippet), draft the batch,
-  the owner approves the exact posts, a bold Pillow graphic is made and
-  viewed for each one, and the posts are scheduled with receipts checked.
-  First run: a STEM-resources Page, three posts a week.
 
 ## 🧰 Everyday Basics
 
