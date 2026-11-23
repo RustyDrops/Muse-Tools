@@ -146,6 +146,15 @@ Little helpers that keep the work organised.
   corners, and shadows) as one reusable theme file, so every tool Muse
   builds you looks like family.
 
+## 📣 Page Posts
+
+- **[Post Researcher, Maker & Scheduler](post-researcher-maker-scheduler/)**
+  Runs a Facebook Page's weekly posts end to end: research (every date and
+  deadline verified on the source page, never a snippet), draft the batch,
+  the owner approves the exact posts, a bold Pillow graphic is made and
+  viewed for each one, and the posts are scheduled with receipts checked.
+  First run: a STEM-resources Page, three posts a week.
+
 ## 🧰 Everyday Basics
 
 The trusty basics underneath everything else. None of these are glamorous.
