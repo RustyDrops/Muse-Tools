@@ -112,6 +112,18 @@ Tools and rules for making short animations that actually move well.
   kept in the background, and the final frame carried over into any
   follow-up. Tell Muse how to shoot, not "make it look like a movie."
 
+## 📣 Getting Found
+
+- **SEO Audit + CRO skills** ([`added-skills-2026-11-26/`](added-skills-2026-11-26/))
+  Two skills by Corey Haines (MIT), tested before landing here: one audits a
+  page for why search engines cannot find or rank it, the other for why
+  visitors do not sign up. On their first real run they caught a missing
+  meta description, a 300 word page trying to rank, and a "see a sample"
+  section that showed business owners a terminal command. The folder also
+  holds our Remotion local notes: how to render captioned Shorts on a small
+  Linux VM, including the browser workaround that the official docs get
+  wrong for proxied machines.
+
 ## 💸 Penny Wise
 
 Tools that keep an eye on the bill.
