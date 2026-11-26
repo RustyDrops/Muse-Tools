@@ -104,6 +104,14 @@ Tools and rules for making short animations that actually move well.
   170 px wide, and a pure `renderAt(t)` function so any frame can be
   redrawn alone and compared pixel for pixel. Ships with a worked
   example film and the QA script that measured it.
+- **GSAP timeline scrub test** ([`gsap-timeline/`](gsap-timeline/))
+  GSAP inside the frame-by-frame pipeline, not instead of it: a paused
+  timeline driven by `seek(t)`, stepped with Playwright, assembled with
+  FFmpeg. Tested with a real render (determinism check: the same moment
+  rendered twice gave identical frame hashes). The win is built-in eases
+  so timeline-heavy pieces stop hand-rolling springs. The folder also
+  records two parked reviews from the same pass, Hairline and Anatomy
+  Reveal, with the reasons.
 - **Cinematic Video gate** ([`cinematic-video/`](cinematic-video/))
   No video until a full shooting brief is approved: six categories
   (duration/framing, people, location, movement by the second, camera
@@ -111,18 +119,6 @@ Tools and rules for making short animations that actually move well.
   one purpose per shot, face/subject priority over scenery, background
   kept in the background, and the final frame carried over into any
   follow-up. Tell Muse how to shoot, not "make it look like a movie."
-
-## 📣 Getting Found
-
-- **SEO Audit + CRO skills** ([`added-skills-2026-11-26/`](added-skills-2026-11-26/))
-  Two skills by Corey Haines (MIT), tested before landing here: one audits a
-  page for why search engines cannot find or rank it, the other for why
-  visitors do not sign up. On their first real run they caught a missing
-  meta description, a 300 word page trying to rank, and a "see a sample"
-  section that showed business owners a terminal command. The folder also
-  holds our Remotion local notes: how to render captioned Shorts on a small
-  Linux VM, including the browser workaround that the official docs get
-  wrong for proxied machines.
 
 ## 💸 Penny Wise
 
