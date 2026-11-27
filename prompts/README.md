@@ -19,6 +19,7 @@ Copy-paste prompts for the memory optimizations in this repo. Each one is writte
 | `13-openverse-sound-effects.md` | Adding free, license checked sound effects from Openverse to a video, game or app, with credits written |
 | `14-laigter-sprite-lighting.md` | Giving flat 2D game sprites dynamic lighting with Laigter: maps generated, checked with numbers, and previewed under a moving light |
 | `15-hook-second-pass.md` | Strengthening the hook on a Short, Reel or post that is already true: 3 variants, one lever each, truth and length gates, scored against the original, which stays if nothing beats it |
+| `16-kenney-assets.md` | Building a game scene from free Kenney models at real world scale: manifest targets, a fit and ground helper, measured gates, screenshot viewed |
 
 Run them in order the first time: split first, then set the daily cleanup going, then use handoffs and the lean rules day to day.
 

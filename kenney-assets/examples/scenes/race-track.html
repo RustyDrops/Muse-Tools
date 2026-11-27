@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Kenney Race Track: Racing Kit scene</title>
+<style>
+  body { margin:0; background:#10160f; color:#eef3f8; font-family:Arial, sans-serif; overflow:hidden; }
+  #hud { position:absolute; top:10px; left:12px; background:rgba(0,0,0,.5); padding:9px 13px; border-radius:9px; font-size:16px; line-height:1.5; }
+  canvas { display:block; }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./three.module.js" } }
+</script>
+</head>
+<body>
+<div id="hud"><b>Kenney Race Track</b> &nbsp; Racing Kit (CC0), scaled with kenney-fit<br>
+<small>Road tiles 10 m, cars 1.9 m wide. Cars lap the loop on their own.</small></div>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from './GLTFLoader.js';
+import { measure, fitWidth, fitHeight, ground, centerAt } from './tools/kenney-fit.js';
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x9db8cc);
+scene.fog = new THREE.Fog(0x9db8cc, 120, 220);
+const camera = new THREE.PerspectiveCamera(50, 1100/700, 0.1, 400);
+const renderer = new THREE.WebGLRenderer({ antialias:true });
+renderer.setSize(1100, 700);
+document.body.appendChild(renderer.domElement);
+
+scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+const sun = new THREE.DirectionalLight(0xfff3d6, 1.7);
+sun.position.set(30, 45, 20); scene.add(sun);
+const fill = new THREE.DirectionalLight(0xbcd3ff, 0.35);
+fill.position.set(-25, 20, -30); scene.add(fill);
+
+const grass = new THREE.Mesh(new THREE.PlaneGeometry(130, 95),
+  new THREE.MeshStandardMaterial({ color: 0x5d8a4a, roughness: 1 }));
+grass.rotation.x = -Math.PI/2; grass.position.y = -0.02; scene.add(grass);
+
+const loader = new GLTFLoader();
+const cache = {};
+async function model(name) {
+  if (!cache[name]) cache[name] = (await loader.loadAsync(`assets/${name}.glb`)).scene;
+  return cache[name].clone(true);
+}
+function place(obj, x, z, rotY = 0) {
+  if (rotY) obj.rotation.y = rotY;
+  ground(obj, 0);
+  centerAt(obj, x, z);
+  scene.add(obj);
+  return obj;
+}
+
+const report = { errors: [] };
+let roadTop = 0;
+try {
+  // Track loop: U = 10 m tiles. Corners are 2U pieces, straights 1U.
+  const U = 10;
+  for (const sx of [-1, 1]) {
+    for (const sz of [-1, 1]) {
+      const corner = await model('roadCornerLarge');
+      fitWidth(corner, 2 * U);
+      // one rotation per corner, stepping 90 degrees around the loop
+      const rot = { '-1,-1': 0, '1,-1': -Math.PI/2, '1,1': Math.PI, '-1,1': Math.PI/2 }[`${sx},${sz}`];
+      place(corner, sx * 2 * U, sz * 1 * U, rot);
+    }
+  }
+  for (const [x, z] of [[-5, -15], [5, -15], [-5, 15], [5, 15]]) {
+    const s = await model('roadStraight');
+    fitWidth(s, U);
+    place(s, x, z, 0);
+    roadTop = measure(s).box.max.y;
+  }
+  report.tileWidth = measure(await model('roadStraight')).size.x; // raw, replaced below
+  const probe = await model('roadStraight'); fitWidth(probe, U);
+  report.tileWidth = measure(probe).size.x;
+  report.roadTop = roadTop;
+
+  // Props
+  for (const [x, z] of [[-38, -26], [38, -26], [-38, 26], [38, 26], [-8, 0], [10, 2], [0, -6]]) {
+    const t = await model('treeLarge'); fitHeight(t, 6); place(t, x, z, x * 1.7);
+  }
+  for (const [x, z] of [[-33, -18], [33, -18], [-33, 18], [33, 18]]) {
+    const t = await model('treeSmall'); fitHeight(t, 3.6); place(t, x, z, z);
+  }
+  for (const [x, z] of [[14, -9], [14, 9], [-14, -9], [-14, 9]]) {
+    const p = await model('pylon'); fitHeight(p, 0.7); place(p, x, z, 0);
+  }
+  const tent = await model('tent'); fitHeight(tent, 3.2); place(tent, -16, 27, 0);
+  const pits = await model('pitsGarage'); fitWidth(pits, 10); place(pits, -14, -31, Math.PI);
+  for (const [x, z] of [[-28, -21], [28, -21], [-28, 21], [28, 21]]) {
+    const l = await model('lightPostModern'); fitHeight(l, 4.5); place(l, x, z, 0);
+  }
+} catch (e) { report.errors.push(String(e)); }
+
+// Drive path: rounded rectangle through the tile centres
+const path = new THREE.CatmullRomCurve3([
+  [-15, -15], [15, -15], [25, -5], [25, 5],
+  [15, 15], [-15, 15], [-25, 5], [-25, -5],
+].map(([x, z]) => new THREE.Vector3(x, 0, z)), true, 'catmullrom', 0.35);
+const lapLen = path.getLength();
+
+// Cars: model centred and grounded inside a group, group drives the path
+const carDefs = [
+  { name: 'raceCarRed',    phase: 0.00, lane: -1.7, speed: 15.5 },
+  { name: 'raceCarGreen',  phase: 0.05, lane: 1.7,  speed: 14.6 },
+  { name: 'raceCarOrange', phase: 0.10, lane: -1.7, speed: 13.9 },
+];
+const cars = [];
+try {
+  for (const def of carDefs) {
+    const inner = await model(def.name);
+    fitWidth(inner, 1.9);
+    ground(inner, roadTop);
+    centerAt(inner, 0, 0);
+    const g = new THREE.Group();
+    g.add(inner); scene.add(g);
+    cars.push({ ...def, group: g, inner });
+  }
+  const parked = await model('raceCarWhite');
+  fitWidth(parked, 1.9); place(parked, -14, -25.2, 0);
+  report.carWidth = measure(cars[0].inner).size.x;
+  report.carBaseY = measure(cars[0].inner).box.min.y;
+} catch (e) { report.errors.push(String(e)); }
+
+function pose(t) {
+  for (const c of cars) {
+    const u = (c.phase + (c.speed * t) / lapLen) % 1;
+    const pos = path.getPointAt(u);
+    const tan = path.getTangentAt(u);
+    const side = new THREE.Vector3(-tan.z, 0, tan.x);
+    pos.addScaledVector(side, c.lane);
+    c.group.position.set(pos.x, 0, pos.z);
+    c.group.rotation.y = Math.atan2(tan.x, tan.z);
+  }
+  const a = 0.75 + t * 0.045;
+  camera.position.set(Math.sin(a) * 52, 30, Math.cos(a) * 52);
+  camera.lookAt(0, 0, 0);
+  renderer.render(scene, camera);
+}
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => pose(clock.getElapsedTime()));
+window.__setTime = (t) => { renderer.setAnimationLoop(null); pose(t); };
+window.__REPORT = report;
+window.__DONE = true;
+pose(0);
+</script>
+</body>
+</html>

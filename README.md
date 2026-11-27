@@ -139,6 +139,18 @@ Tools and rules for making short animations that actually move well.
   example set: a flat crate, its maps, a before/after sheet and an
   orbiting light GIF. One honest catch is in there too: opaque sprites
   get blank occlusion and parallax maps, keep the alpha.
+- **Kenney assets at real world scale** ([`kenney-assets/`](kenney-assets/))
+  Free game models that fit your scene. Kenney packs (kenney.nl) are
+  public domain CC0, but every kit is authored at its own scale, so raw
+  models tower or shrink next to each other. This folder measures each
+  model and fits it to a real world size instead: a manifest tool that
+  scans a pack and assigns targets (chair 0.9 m, bookcase 1.8 m, race
+  car 1.9 m wide), a Three.js helper that scales, grounds and stacks
+  models from that manifest, five copy paste prompts, and two tested
+  example builds: a playable cozy room from the Furniture Kit and a
+  Racing Kit track with three cars lapping, video included. Gates are
+  numbers, not vibes: sizes within 2 percent, bases at zero, nothing
+  overlapping, screenshot viewed.
 
 ## 💸 Penny Wise
 
