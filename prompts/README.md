@@ -18,6 +18,7 @@ Copy-paste prompts for the memory optimizations in this repo. Each one is writte
 | `12-pdf-to-podcast.md` | Turning one PDF you supply into a two-host podcast script, claims tied to pages, script approved before audio |
 | `13-openverse-sound-effects.md` | Adding free, license checked sound effects from Openverse to a video, game or app, with credits written |
 | `14-laigter-sprite-lighting.md` | Giving flat 2D game sprites dynamic lighting with Laigter: maps generated, checked with numbers, and previewed under a moving light |
+| `15-hook-second-pass.md` | Strengthening the hook on a Short, Reel or post that is already true: 3 variants, one lever each, truth and length gates, scored against the original, which stays if nothing beats it |
 
 Run them in order the first time: split first, then set the daily cleanup going, then use handoffs and the lean rules day to day.
 
