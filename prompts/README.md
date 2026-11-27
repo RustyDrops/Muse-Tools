@@ -14,6 +14,8 @@ Copy-paste prompts for the memory optimizations in this repo. Each one is writte
 | `08-identity-and-soul-setup.md` | One-time setup — fill in blank Identity/Soul fields so side chats stop drifting |
 | `09-tap-choice-replies.md` | Standing habit — answers with 2-3 real options become one tap |
 | `10-side-chat-rooms-by-role.md` | When chats pile up — one room per job, main chat orchestrates |
+| `11-month-content-plan-that-doesnt-invent.md` | Planning a month of social posts from your own facts only, nothing invented |
+| `12-pdf-to-podcast.md` | Turning one PDF you supply into a two-host podcast script, claims tied to pages, script approved before audio |
 
 Run them in order the first time: split first, then set the daily cleanup going, then use handoffs and the lean rules day to day.
 
