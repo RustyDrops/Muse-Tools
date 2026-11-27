@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<style>
+  html,body{margin:0;padding:0;background:#141c36;overflow:hidden}
+  #stage{width:540px;height:960px;position:relative}
+  svg{display:block}
+  .cap{font-family:"Segoe Print","Comic Sans MS",cursive;font-weight:700;fill:#f3e9cf;text-anchor:middle}
+  .bub{font-family:"Segoe Print","Comic Sans MS",cursive;font-weight:700;fill:#2b2118;text-anchor:middle}
+</style></head>
+<body><div id="stage">
+<svg id="s" width="540" height="960" viewBox="0 0 540 960" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141c36"/><stop offset="0.55" stop-color="#1e2b4c"/><stop offset="1" stop-color="#2a3a63"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fff5c8" stop-opacity="0.35"/><stop offset="1" stop-color="#fff5c8" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence id="turb" type="fractalNoise" baseFrequency="0.015" numOctaves="2" seed="1" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="3"/>
+    </filter>
+    <filter id="grainF"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="2" seed="7" result="n"/><feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.6 0.6 0.6 0 0"/></filter>
+  </defs>
+  <rect x="0" y="0" width="540" height="960" fill="url(#sky)"/>
+  <g filter="url(#rough)" id="world">
+    <circle id="moonHalo" cx="445" cy="130" r="105" fill="url(#halo)"/>
+    <path id="moon" d="M462 52 C424 66 402 102 410 142 C418 180 450 204 488 200 C458 184 442 158 444 126 C446 96 458 70 478 56 C473 50 468 49 462 52 Z" fill="#fff2b2" stroke="#e8d588" stroke-width="3" stroke-linejoin="round"/>
+    <g id="stars"></g>
+    <path id="ground" d="M0 560 C120 522 250 592 380 552 C450 532 505 544 540 556 V960 H0 Z" fill="#2a4433"/>
+    <path d="M0 560 C120 522 250 592 380 552 C450 532 505 544 540 556" fill="none" stroke="#3f634b" stroke-width="5"/>
+    <g id="artTree"><g id="owlTree">
+<defs>
+<clipPath id="ot-canopyClip">
+<path d="M 332 252 C 304 250, 296 220, 314 198 C 306 174, 326 148, 356 152 C 372 132, 414 130, 436 148 C 464 138, 496 154, 498 182 C 506 204, 498 238, 474 246 C 454 262, 416 260, 396 250 C 374 262, 348 260, 332 252 Z"/>
+</clipPath>
+<clipPath id="ot-owlBodyClip">
+<path d="M 418 304 C 402 296, 396 270, 408 256 C 420 246, 444 246, 460 254 C 476 262, 480 286, 468 302 C 484 316, 492 346, 480 370 C 468 388, 434 390, 418 374 C 404 358, 404 324, 418 304 Z"/>
+</clipPath>
+</defs>
+
+<!-- Gnarled Trunk (strictly inside x 440..505, ending at y 570) and Branch at y ~380 -->
+<g id="ot-trunkAndBranch">
+<!-- Base bark fill -->
+<path d="M 456 236 C 458 282, 456 328, 452 362 C 426 364, 384 368, 344 374 C 332 376, 326 382, 332 388 C 344 394, 378 390, 404 388 C 424 386, 442 388, 452 396 C 450 448, 446 508, 442 558 C 441 566, 452 570, 466 568 C 482 566, 498 568, 502 558 C 498 486, 496 346, 492 236 Z" fill="#4A3525"/>
+
+<!-- Left-facing highlight along trunk and top of branch -->
+<path d="M 456 236 C 458 282, 456 328, 452 362 C 426 364, 384 368, 344 374 C 336 376, 332 379, 332 382 C 370 376, 424 372, 460 372 C 464 334, 466 284, 464 236 Z" fill="#664C37"/>
+<path d="M 452 396 C 450 448, 446 508, 442 558 C 442 563, 447 566, 454 567 C 456 512, 460 448, 462 394 Z" fill="#664C37"/>
+
+<!-- Right-side and under-branch bark shadow -->
+<path d="M 476 236 C 480 346, 482 486, 486 567 C 494 567, 500 564, 502 558 C 498 486, 496 346, 492 236 Z" fill="#2C1E14"/>
+<path d="M 332 385 C 344 393, 378 390, 404 388 C 426 386, 444 388, 456 398 C 456 390, 442 380, 404 382 C 376 384, 346 386, 332 385 Z" fill="#2C1E14"/>
+
+<!-- Gnarled bark fissure lines and knot -->
+<g fill="none" stroke="#2C1E14" stroke-width="3" stroke-linecap="round">
+<path d="M 470 264 C 468 298, 472 332, 468 368"/>
+<path d="M 476 392 C 472 428, 466 446, 474 478"/>
+<path d="M 464 438 C 458 446, 458 458, 465 464 C 471 460, 471 446, 464 438 Z"/>
+<path d="M 464 488 C 462 516, 458 540, 460 562"/>
+<path d="M 482 456 C 480 492, 482 528, 480 558"/>
+<path d="M 366 380 C 388 378, 414 378, 438 380"/>
+</g>
+
+<!-- Trunk and branch outline -->
+<path d="M 456 236 C 458 282, 456 328, 452 362 C 426 364, 384 368, 344 374 C 332 376, 326 382, 332 388 C 344 394, 378 390, 404 388 C 424 386, 442 388, 452 396 C 450 448, 446 508, 442 558 C 441 566, 452 570, 466 568 C 482 566, 498 568, 502 558 C 498 486, 496 346, 492 236" fill="none" stroke="#231815" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+
+<!-- Oak Canopy: ONE irregular merged 5-lobe cloud silhouette, wider than tall -->
+<g id="ot-canopy">
+<!-- Single merged canopy base path (width ~202px, height ~128px) -->
+<path d="M 332 252 C 304 250, 296 220, 314 198 C 306 174, 326 148, 356 152 C 372 132, 414 130, 436 148 C 464 138, 496 154, 498 182 C 506 204, 498 238, 474 246 C 454 262, 416 260, 396 250 C 374 262, 348 260, 332 252 Z" fill="#243D2F"/>
+
+<!-- Clipped crest highlights and separate shadow crescents tucked under lobes -->
+<g clip-path="url(#ot-canopyClip)">
+<!-- Upper lobe crest highlights -->
+<path d="M 312 196 C 310 172, 330 150, 358 154 C 374 134, 414 132, 436 150 C 462 142, 492 156, 496 182 C 474 166, 452 162, 432 168 C 410 150, 376 152, 358 170 C 336 168, 320 178, 312 196 Z" fill="#385A44"/>
+
+<!-- Separate shadow crescent paths tucked under the lobes -->
+<path d="M 300 220 C 312 242, 346 248, 372 236 C 354 256, 316 254, 300 220 Z" fill="#16281E"/>
+<path d="M 346 244 C 368 252, 388 246, 402 234 C 394 256, 366 262, 346 244 Z" fill="#16281E"/>
+<path d="M 394 246 C 422 254, 456 248, 476 230 C 464 258, 420 264, 394 246 Z" fill="#16281E"/>
+<path d="M 464 238 C 486 234, 498 214, 498 192 C 506 216, 492 244, 464 238 Z" fill="#16281E"/>
+<path d="M 356 198 C 376 210, 406 208, 424 194 C 408 216, 374 218, 356 198 Z" fill="#16281E" opacity="0.7"/>
+</g>
+
+<!-- Single wandering canopy outline -->
+<path d="M 332 252 C 304 250, 296 220, 314 198 C 306 174, 326 148, 356 152 C 372 132, 414 130, 436 148 C 464 138, 496 154, 498 182 C 506 204, 498 238, 474 246 C 454 262, 416 260, 396 250 C 374 262, 348 260, 332 252 Z" fill="none" stroke="#231815" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+
+<!-- Perched Owl (x 396..492, y 250..390, height ~140px, looking down-left toward bear) -->
+<g id="ot-owl">
+<!-- Short tail feathers peeking behind branch -->
+<path d="M 462 374 C 468 388, 478 394, 486 390 C 488 384, 482 374, 476 368 Z" fill="#4A392C" stroke="#231815" stroke-width="3" stroke-linejoin="round"/>
+
+<!-- Owl Head and Body silhouette -->
+<path d="M 418 304 C 402 296, 396 270, 408 256 C 420 246, 444 246, 460 254 C 476 262, 480 286, 468 302 C 484 316, 492 346, 480 370 C 468 388, 434 390, 418 374 C 404 358, 404 324, 418 304 Z" fill="#6E5845"/>
+
+<!-- Clipped body shading, cream belly, and 3-tier breast feather scallops -->
+<g clip-path="url(#ot-owlBodyClip)">
+<!-- Crown & left shoulder highlight -->
+<path d="M 404 260 C 416 246, 446 246, 464 258 C 444 254, 418 258, 408 274 Z" fill="#8F755E"/>
+<path d="M 418 304 C 408 320, 406 344, 414 364 C 412 344, 416 322, 426 308 Z" fill="#8F755E"/>
+
+<!-- Right back shadow -->
+<path d="M 464 256 C 482 280, 492 344, 476 382 L 496 382 L 496 256 Z" fill="#4A392C"/>
+
+<!-- Plump cream belly patch -->
+<path d="M 414 314 C 426 306, 450 308, 460 322 C 468 338, 464 368, 448 380 C 430 388, 412 374, 408 352 C 406 336, 408 320, 414 314 Z" fill="#D8CCA8"/>
+<!-- Belly lower-right shade -->
+<path d="M 416 368 C 432 378, 452 372, 460 346 C 464 364, 454 380, 438 382 C 424 384, 414 376, 416 368 Z" fill="#B0A27E"/>
+
+<!-- Scalloped breast feathers in 3 tiers -->
+<g fill="none" stroke="#6E5845" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+<!-- Tier 1 -->
+<path d="M 416 326 C 420 333, 427 333, 431 326 C 435 333, 442 333, 446 326 C 450 333, 456 333, 459 327"/>
+<!-- Tier 2 -->
+<path d="M 413 341 C 418 348, 425 348, 429 341 C 434 348, 441 348, 445 341 C 449 348, 456 348, 459 342"/>
+<!-- Tier 3 -->
+<path d="M 416 356 C 421 363, 428 363, 433 356 C 438 363, 445 363, 450 356"/>
+</g>
+</g>
+
+<!-- Owl Head and Body outline -->
+<path d="M 418 304 C 402 296, 396 270, 408 256 C 420 246, 444 246, 460 254 C 476 262, 480 286, 468 302 C 484 316, 492 346, 480 370 C 468 388, 434 390, 418 374 C 404 358, 404 324, 418 304 Z" fill="none" stroke="#231815" stroke-width="3.5" stroke-linejoin="round"/>
+
+<!-- Folded Wing on right side with 3 primary tips -->
+<g id="ot-wing">
+<path d="M 456 308 C 476 312, 490 334, 484 358 C 482 366, 478 374, 474 378 C 470 374, 468 368, 468 364 C 464 370, 460 374, 456 374 C 454 368, 454 362, 455 358 C 450 364, 446 366, 443 364 C 440 346, 444 320, 456 308 Z" fill="#6E5845"/>
+<!-- Wing shade and highlight -->
+<path d="M 462 312 C 478 322, 484 348, 474 376 C 484 364, 488 334, 472 314 Z" fill="#4A392C"/>
+<path d="M 456 308 C 448 320, 444 342, 445 360 C 448 342, 452 322, 460 310 Z" fill="#8F755E"/>
+<!-- Wing outline with 3 distinct primary tips -->
+<path d="M 456 308 C 476 312, 490 334, 484 358 C 482 366, 478 374, 474 378 C 470 374, 468 368, 468 364 C 464 370, 460 374, 456 374 C 454 368, 454 362, 455 358 C 450 364, 446 366, 443 364 C 440 346, 444 320, 456 308 Z" fill="none" stroke="#231815" stroke-width="3.2" stroke-linejoin="round"/>
+<!-- Wing covert scallop detail -->
+<path d="M 450 334 C 456 339, 464 339, 469 333 M 452 347 C 458 352, 466 352, 472 346" fill="none" stroke="#4A392C" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+
+<!-- Twin Heart-Shaped Face Discs tilted slightly down-left -->
+<g id="ot-face">
+<!-- Disc base -->
+<path d="M 426 270 C 418 260, 400 264, 398 278 C 396 292, 408 304, 422 304 C 425 304, 428 302, 430 299 C 434 304, 440 307, 446 307 C 460 307, 470 295, 466 281 C 462 267, 444 263, 434 272 C 431 274, 428 273, 426 270 Z" fill="#D8CCA8"/>
+<!-- Disc lower shade -->
+<path d="M 400 288 C 406 300, 420 302, 428 296 C 434 303, 452 305, 464 293 C 458 305, 440 309, 430 299 C 422 306, 404 302, 400 288 Z" fill="#B0A27E"/>
+<!-- Disc outline and feather ticks -->
+<path d="M 426 270 C 418 260, 400 264, 398 278 C 396 292, 408 304, 422 304 C 425 304, 428 302, 430 299 C 434 304, 440 307, 446 307 C 460 307, 470 295, 466 281 C 462 267, 444 263, 434 272" fill="none" stroke="#6E5845" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M 403 272 L 400 270 M 400 282 L 396 282 M 405 294 L 402 296 M 459 275 L 462 273 M 463 286 L 467 286 M 457 298 L 460 301" fill="none" stroke="#4A392C" stroke-width="2.2" stroke-linecap="round"/>
+
+<!-- Amber Iris Eyes looking down-left toward the bear -->
+<!-- Left eye -->
+<circle cx="414" cy="284" r="8.5" fill="#E2A32D" stroke="#231815" stroke-width="2.8"/>
+<circle cx="412" cy="286" r="4.8" fill="#231815"/>
+<circle cx="415" cy="283" r="1.8" fill="#FFFFEE"/>
+<!-- Sleepy/gentle brow ridge -->
+<path d="M 404 279 C 410 274, 419 275, 424 281" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round"/>
+
+<!-- Right eye -->
+<circle cx="446" cy="287" r="8.5" fill="#E2A32D" stroke="#231815" stroke-width="2.8"/>
+<circle cx="444" cy="289" r="4.8" fill="#231815"/>
+<circle cx="447" cy="286" r="1.8" fill="#FFFFEE"/>
+<path d="M 436 282 C 442 277, 451 278, 456 284" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round"/>
+
+<!-- Small curved golden beak -->
+<path d="M 424 291 C 428 288, 434 289, 435 293 C 434 299, 428 303, 425 304 C 423 300, 422 295, 424 291 Z" fill="#D69336" stroke="#231815" stroke-width="2.6" stroke-linejoin="round"/>
+</g>
+
+<!-- Talons gripping the branch at y ~380 -->
+<g id="ot-talons" fill="#D69336" stroke="#231815" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+<!-- Left foot talons -->
+<path d="M 418 374 C 415 378, 415 384, 418 387 C 421 384, 421 378, 418 374 Z"/>
+<path d="M 424 375 C 421 379, 421 385, 424 388 C 427 385, 427 379, 424 375 Z"/>
+<!-- Right foot talons -->
+<path d="M 442 376 C 439 380, 439 386, 442 389 C 445 386, 445 380, 442 376 Z"/>
+<path d="M 448 376 C 445 380, 445 386, 448 389 C 451 386, 451 380, 448 376 Z"/>
+</g>
+</g>
+</g></g>
+    <g id="artBear"><g id="bearBed">
+<defs>
+<filter id="bb-groundBlur" x="-15%" y="-40%" width="130%" height="180%">
+<feGaussianBlur stdDeviation="10"/>
+</filter>
+<clipPath id="bb-headClip">
+<path d="M 105 708 C 98 690, 96 672, 102 652 C 100 628, 106 604, 122 588 C 102 580, 94 558, 108 547 C 122 537, 146 548, 154 567 C 174 557, 204 557, 224 567 C 234 548, 258 537, 272 547 C 286 558, 278 582, 258 590 C 274 608, 280 634, 275 658 C 282 676, 280 694, 272 710 Z"/>
+</clipPath>
+<clipPath id="bb-quiltClip">
+<path d="M 66 726 C 85 702, 300 698, 336 724 C 362 744, 366 786, 350 806 C 325 824, 95 826, 66 806 C 50 790, 52 746, 66 726 Z"/>
+</clipPath>
+</defs>
+
+<!-- Soft blurred ground shadow under the bed -->
+<ellipse cx="210" cy="816" rx="150" ry="15" fill="#16281E" opacity="0.55" filter="url(#bb-groundBlur)"/>
+
+<!-- Plump pillow tucked behind bear shoulders -->
+<g id="bb-pillow">
+<path d="M 68 716 C 54 700, 58 666, 86 660 C 118 652, 260 652, 294 662 C 320 670, 322 702, 306 716 Z" fill="#EADBCE" stroke="#231815" stroke-width="3.5" stroke-linejoin="round"/>
+<path d="M 72 712 C 96 694, 278 694, 302 712 Z" fill="#BFAF9F"/>
+</g>
+
+<!-- Bear Head and Shoulders -->
+<g id="bb-bearHead">
+<!-- Base silhouette -->
+<path d="M 105 708 C 98 690, 96 672, 102 652 C 100 628, 106 604, 122 588 C 102 580, 94 558, 108 547 C 122 537, 146 548, 154 567 C 174 557, 204 557, 224 567 C 234 548, 258 537, 272 547 C 286 558, 278 582, 258 590 C 274 608, 280 634, 275 658 C 282 676, 280 694, 272 710 Z" fill="#8D5B38"/>
+
+<!-- Clipped shading, highlight, and fur texture passes -->
+<g clip-path="url(#bb-headClip)">
+<!-- Left & bottom shade -->
+<path d="M 90 540 C 115 585, 118 648, 148 684 C 175 702, 230 704, 280 694 L 280 720 L 90 720 Z" fill="#5E3A21"/>
+<!-- Under-ear shades -->
+<path d="M 100 584 C 114 578, 128 584, 134 596 C 120 598, 108 594, 100 584 Z" fill="#5E3A21"/>
+<path d="M 278 586 C 264 580, 250 586, 244 598 C 258 600, 270 596, 278 586 Z" fill="#5E3A21"/>
+<!-- Right crown & cheek warm highlight -->
+<path d="M 178 556 C 220 556, 266 590, 274 648 C 260 618, 232 578, 178 556 Z" fill="#B07850"/>
+<path d="M 244 546 C 264 542, 278 558, 266 582 C 260 564, 252 554, 244 546 Z" fill="#B07850"/>
+
+<!-- Clipped fur strokes along crown and jaw -->
+<g stroke="#5E3A21" stroke-width="2.5" stroke-linecap="round" fill="none">
+<path d="M 172 563 C 176 557, 181 555, 185 555"/>
+<path d="M 186 562 C 191 556, 196 555, 201 556"/>
+<path d="M 200 564 C 205 559, 210 558, 215 560"/>
+<path d="M 110 634 C 103 640, 100 648, 103 655"/>
+<path d="M 112 648 C 105 654, 102 662, 106 670"/>
+<path d="M 116 662 C 110 668, 108 676, 113 682"/>
+<path d="M 128 676 C 124 682, 124 689, 130 694"/>
+</g>
+<g stroke="#B07850" stroke-width="2.5" stroke-linecap="round" fill="none">
+<path d="M 264 624 C 271 631, 273 639, 270 647"/>
+<path d="M 262 640 C 270 647, 272 655, 268 663"/>
+<path d="M 258 655 C 265 662, 266 670, 261 677"/>
+<path d="M 246 672 C 252 678, 252 686, 246 692"/>
+</g>
+</g>
+
+<!-- Rose inner ears -->
+<path d="M 114 579 C 106 569, 108 555, 120 553 C 132 551, 144 562, 144 574 C 134 573, 122 575, 114 579 Z" fill="#B86B65"/>
+<path d="M 264 581 C 272 571, 270 557, 258 555 C 246 553, 234 564, 234 576 C 244 575, 256 577, 264 581 Z" fill="#B86B65"/>
+
+<!-- Outer head outline with ears indented into scalp -->
+<path d="M 105 708 C 98 690, 96 672, 102 652 C 100 628, 106 604, 122 588 C 102 580, 94 558, 108 547 C 122 537, 146 548, 154 567 C 174 557, 204 557, 224 567 C 234 548, 258 537, 272 547 C 286 558, 278 582, 258 590 C 274 608, 280 634, 275 658 C 282 676, 280 694, 272 710" fill="none" stroke="#231815" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- Ear indent creases -->
+<path d="M 148 564 C 154 570, 158 577, 160 584" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round"/>
+<path d="M 230 564 C 224 570, 220 577, 218 584" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round"/>
+
+<!-- Gold rim highlight stroke along right side of head -->
+<path d="M 264 552 C 275 562, 270 578, 255 588 M 258 595 C 272 612, 276 636, 271 657 C 276 672, 276 686, 270 700" fill="none" stroke="#E2A32D" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+
+<!-- Cheek blush -->
+<path d="M 122 654 C 132 649, 146 653, 148 663 C 149 672, 135 677, 124 672 C 115 667, 114 658, 122 654 Z" fill="#B86B65" opacity="0.72"/>
+<path d="M 254 654 C 244 649, 230 653, 228 663 C 227 672, 241 677, 252 672 C 261 667, 262 658, 254 654 Z" fill="#B86B65" opacity="0.72"/>
+
+<!-- Heart-wedge muzzle -->
+<path d="M 189 634 C 206 634, 226 648, 223 668 C 220 686, 204 694, 189 694 C 174 694, 158 686, 155 668 C 152 648, 172 634, 189 634 Z" fill="#CEAB86"/>
+<!-- Muzzle lower shade -->
+<path d="M 157 673 C 166 688, 212 688, 221 673 C 216 688, 203 694, 189 694 C 175 694, 162 688, 157 673 Z" fill="#A88562"/>
+<path d="M 189 634 C 206 634, 226 648, 223 668 C 220 686, 204 694, 189 694 C 174 694, 158 686, 155 668 C 152 648, 172 634, 189 634 Z" fill="none" stroke="#231815" stroke-width="3" stroke-linejoin="round"/>
+
+<!-- Soft nose and sleepy smile -->
+<path d="M 178 650 C 178 644, 200 644, 200 650 C 200 657, 193 663, 189 663 C 185 663, 178 657, 178 650 Z" fill="#231815"/>
+<ellipse cx="193" cy="648" rx="3" ry="1.6" fill="#FFFFEE"/>
+<path d="M 189 663 L 189 674 M 176 675 C 182 681, 189 678, 189 674 C 189 678, 196 681, 202 675" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- Eyebrows -->
+<path d="M 140 618 C 147 613, 157 613, 163 617" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round"/>
+<path d="M 238 618 C 231 613, 221 613, 215 617" fill="none" stroke="#231815" stroke-width="3" stroke-linecap="round"/>
+
+<!-- Open sleepy eyes at y ~640 -->
+<g id="bearEyesOpen">
+<!-- Left eye -->
+<path d="M 142 639 C 142 632, 160 632, 160 639 C 160 646, 142 646, 142 639 Z" fill="#231815"/>
+<!-- Heavy sleepy upper lid -->
+<path d="M 140 637 C 146 631, 156 632, 162 638 C 156 635, 146 635, 140 637 Z" fill="#5E3A21" stroke="#231815" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="154" cy="638" r="2.1" fill="#FFFFEE"/>
+<circle cx="148" cy="642" r="1" fill="#FFFFEE"/>
+
+<!-- Right eye -->
+<path d="M 218 639 C 218 632, 236 632, 236 639 C 236 646, 218 646, 218 639 Z" fill="#231815"/>
+<!-- Heavy sleepy upper lid -->
+<path d="M 216 638 C 222 632, 232 631, 238 637 C 232 635, 222 635, 216 638 Z" fill="#5E3A21" stroke="#231815" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+<circle cx="230" cy="638" r="2.1" fill="#FFFFEE"/>
+<circle cx="224" cy="642" r="1" fill="#FFFFEE"/>
+</g>
+
+<!-- Closed curved eyelid paths at the same eye positions -->
+<g id="bearEyesClosed" opacity="0">
+<path d="M 140 639 C 146 646, 156 646, 162 639" fill="none" stroke="#231815" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M 145 643 L 143 646 M 157 643 L 159 646" fill="none" stroke="#231815" stroke-width="2.5" stroke-linecap="round"/>
+<path d="M 216 639 C 222 646, 232 646, 238 639" fill="none" stroke="#231815" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M 221 643 L 219 646 M 233 643 L 235 646" fill="none" stroke="#231815" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+</g>
+
+<!-- Plump Quilt and Rolled Cream Sheet Cuff -->
+<g id="bb-quilt">
+<!-- Rolled cream sheet cuff -->
+<path d="M 62 726 C 60 710, 74 696, 102 694 C 154 690, 260 690, 316 698 C 340 702, 350 716, 344 730 C 316 742, 92 742, 62 726 Z" fill="#EADBCE"/>
+<!-- Cuff underside shade -->
+<path d="M 62 726 C 102 714, 304 714, 344 730 C 316 742, 92 742, 62 726 Z" fill="#BFAF9F"/>
+<path d="M 62 726 C 60 710, 74 696, 102 694 C 154 690, 260 690, 316 698 C 340 702, 350 716, 344 730" fill="none" stroke="#231815" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+<!-- Plump red quilt body -->
+<path d="M 66 726 C 85 702, 300 698, 336 724 C 362 744, 366 786, 350 806 C 325 824, 95 826, 66 806 C 50 790, 52 746, 66 726 Z" fill="#99342C"/>
+
+<!-- Clipped quilt shading, highlight, and fold ribbons -->
+<g clip-path="url(#bb-quiltClip)">
+<!-- Plump top crest highlight -->
+<path d="M 74 726 C 130 704, 286 704, 338 728 C 296 748, 124 750, 74 726 Z" fill="#BD4C43"/>
+<!-- Deep bottom and left belly shade -->
+<path d="M 50 778 C 110 806, 298 804, 366 772 L 366 830 L 50 830 Z" fill="#661E18"/>
+<!-- Soft fold ribbons across quilt -->
+<path d="M 96 720 C 122 754, 128 786, 114 820 L 130 820 C 144 786, 138 754, 112 720 Z" fill="#661E18" opacity="0.55"/>
+<path d="M 112 720 C 138 754, 144 786, 130 820 L 142 820 C 154 786, 148 754, 122 720 Z" fill="#BD4C43" opacity="0.65"/>
+
+<path d="M 206 714 C 218 752, 216 788, 204 822 L 220 822 C 232 788, 234 752, 220 714 Z" fill="#661E18" opacity="0.55"/>
+<path d="M 220 714 C 234 752, 232 788, 220 822 L 232 822 C 244 788, 246 752, 232 714 Z" fill="#BD4C43" opacity="0.65"/>
+
+<path d="M 294 722 C 316 754, 320 784, 306 818 L 320 818 C 334 784, 330 754, 308 722 Z" fill="#661E18" opacity="0.55"/>
+<!-- Quilted stitching arcs -->
+<path d="M 72 758 C 142 742, 274 742, 346 760" fill="none" stroke="#661E18" stroke-width="2.5" stroke-dasharray="8 6" stroke-linecap="round"/>
+<path d="M 68 786 C 144 770, 276 770, 350 788" fill="none" stroke="#661E18" stroke-width="2.5" stroke-dasharray="8 6" stroke-linecap="round"/>
+</g>
+
+<!-- Quilt outline -->
+<path d="M 66 726 C 85 702, 300 698, 336 724 C 362 744, 366 786, 350 806 C 325 824, 95 826, 66 806 C 50 790, 52 746, 66 726 Z" fill="none" stroke="#231815" stroke-width="3.5" stroke-linejoin="round"/>
+</g>
+
+<!-- Bear Paws resting on top of the quilt cuff -->
+<g id="bb-paws">
+<!-- Left paw -->
+<path d="M 114 706 C 110 692, 128 686, 144 690 C 160 694, 166 710, 156 720 C 144 728, 118 722, 114 706 Z" fill="#8D5B38"/>
+<path d="M 115 710 C 122 720, 146 722, 156 716 C 146 726, 120 722, 115 710 Z" fill="#5E3A21"/>
+<path d="M 124 690 C 136 688, 150 692, 156 702 C 146 696, 134 692, 124 690 Z" fill="#B07850"/>
+<path d="M 114 706 C 110 692, 128 686, 144 690 C 160 694, 166 710, 156 720 C 144 728, 118 722, 114 706 Z" fill="none" stroke="#231815" stroke-width="3.2" stroke-linejoin="round"/>
+<path d="M 130 710 C 131 715, 131 719, 130 722 M 143 711 C 144 716, 144 720, 143 723" fill="none" stroke="#231815" stroke-width="2.5" stroke-linecap="round"/>
+
+<!-- Right paw -->
+<path d="M 264 706 C 268 692, 250 686, 234 690 C 218 694, 212 710, 222 720 C 234 728, 260 722, 264 706 Z" fill="#8D5B38"/>
+<path d="M 222 716 C 232 722, 256 720, 263 710 C 258 722, 232 726, 222 716 Z" fill="#5E3A21"/>
+<path d="M 234 690 C 246 688, 258 694, 262 704 C 254 696, 244 692, 234 690 Z" fill="#B07850"/>
+<path d="M 264 706 C 268 692, 250 686, 234 690 C 218 694, 212 710, 222 720 C 234 728, 260 722, 264 706 Z" fill="none" stroke="#231815" stroke-width="3.2" stroke-linejoin="round"/>
+<path d="M 235 711 C 234 716, 234 720, 235 723 M 248 710 C 247 715, 247 719, 248 722" fill="none" stroke="#231815" stroke-width="2.5" stroke-linecap="round"/>
+</g>
+</g></g>
+    <g id="bub1" opacity="0">
+      <path d="M276 470 C270 428 322 402 382 408 C438 413 466 442 460 478 C454 516 398 534 338 528 C288 523 280 502 276 470 Z M306 522 L292 560 L330 528" fill="#f7f0dd" stroke="#2b2118" stroke-width="3" stroke-linejoin="round"/>
+      <text class="bub" x="368" y="462" font-size="29">I can&#8217;t</text>
+      <text class="bub" x="368" y="496" font-size="29">sleep!</text>
+    </g>
+    <g id="bub2" opacity="0">
+      <path d="M60 268 C54 226 106 200 166 206 C222 211 250 240 244 276 C238 314 182 332 122 326 C72 321 64 300 60 268 Z M196 322 L214 360 L228 318" fill="#f7f0dd" stroke="#2b2118" stroke-width="3" stroke-linejoin="round"/>
+      <text class="bub" x="152" y="260" font-size="26">Sleep is</text>
+      <text class="bub" x="152" y="294" font-size="26">just shy.</text>
+    </g>
+  </g>
+  <rect id="grain" x="0" y="0" width="540" height="960" filter="url(#grainF)" opacity="0.10"/>
+  <rect x="0" y="0" width="540" height="960" fill="none" stroke="#f3e9cf" stroke-width="46"/>
+  <rect x="24" y="24" width="492" height="912" fill="none" stroke="#2b2118" stroke-width="2" opacity="0.35"/>
+  <text id="cap1" class="cap" x="270" y="886" font-size="29">Bramble could not sleep.</text>
+  <text id="cap2" class="cap" x="270" y="886" font-size="25" opacity="0">He counted stars. They winked back.</text>
+  <text id="cap3" class="cap" x="270" y="886" font-size="27" opacity="0">Just listen. The night is singing.</text>
+</svg>
+</div>
+<script>
+(function(){
+  var seed=42; function rnd(){seed=(seed*1103515245+12345)%2147483648;return seed/2147483648;}
+  var g=document.getElementById('stars'), NS='http://www.w3.org/2000/svg';
+  var starData=[];
+  for(var i=0;i<34;i++){
+    var x=26+rnd()*480, y=36+rnd()*430, tier=rnd();
+    var p=document.createElementNS(NS,'path');
+    if(tier<0.14){ var r=11+rnd()*5; p.setAttribute('d','M'+x+' '+(y-r)+' L'+(x+r*0.25)+' '+(y-r*0.25)+' L'+(x+r)+' '+y+' L'+(x+r*0.25)+' '+(y+r*0.25)+' L'+x+' '+(y+r)+' L'+(x-r*0.25)+' '+(y+r*0.25)+' L'+(x-r)+' '+y+' L'+(x-r*0.25)+' '+(y-r*0.25)+' Z'); p.setAttribute('fill','#ffe79a'); }
+    else if(tier<0.5){ var r2=6+rnd()*4; p.setAttribute('d','M'+x+' '+(y-r2)+' L'+(x+r2*0.3)+' '+(y-r2*0.3)+' L'+(x+r2)+' '+y+' L'+(x+r2*0.3)+' '+(y+r2*0.3)+' L'+x+' '+(y+r2)+' L'+(x-r2*0.3)+' '+(y+r2*0.3)+' L'+(x-r2)+' '+y+' L'+(x-r2*0.3)+' '+(y-r2*0.3)+' Z'); p.setAttribute('fill','#fff5c8'); }
+    else { p.setAttribute('d','M'+x+' '+y+' h3 v3 h-3 Z'); p.setAttribute('fill','#7a8cae'); }
+    p.setAttribute('opacity','0'); g.appendChild(p); starData.push(p);
+  }
+  function clamp(v){return v<0?0:v>1?1:v;}
+  function ease(v){return 1-Math.pow(1-v,2);}
+  window.renderAt=function(t){
+    var boil=Math.floor(t*8);
+    document.getElementById('turb').setAttribute('seed', String(1+(boil%3)));
+    document.getElementById('world').setAttribute('transform','rotate('+(boil%2?0.15:-0.15)+' 270 480)');
+    document.getElementById('moon').setAttribute('opacity', String(ease(clamp((t-0.2)/1.2))));
+    document.getElementById('moonHalo').setAttribute('opacity', String(ease(clamp((t-0.4)/1.4))*(0.85+0.15*Math.sin(t*1.3))));
+    starData.forEach(function(p,i){
+      var on=clamp((t-(0.5+i*0.07))/0.3);
+      var tw=0.7+0.3*Math.sin(t*2.2+i*1.9);
+      var dim=t>13?clamp(1-(t-13-i*0.03)/0.6):1;
+      p.setAttribute('opacity', String(on*tw*Math.max(0.2,dim)));
+    });
+    var tree=document.getElementById('artTree'); if(tree) tree.setAttribute('opacity', String(ease(clamp((t-2.6)/1.6))));
+    var owl=document.getElementById('ot-owl'); if(owl){ owl.setAttribute('opacity', String(ease(clamp((t-8.8)/1.2)))); }
+    var bear=document.getElementById('artBear'); if(bear) bear.setAttribute('opacity', String(ease(clamp((t-4.6)/1.4))));
+    var eo=document.getElementById('bearEyesOpen'), ec=document.getElementById('bearEyesClosed');
+    if(eo) eo.setAttribute('opacity', (t<5.6||t>13.2)?'0':'1');
+    if(ec) ec.setAttribute('opacity', t>13.2?'1':'0');
+    function bub(id,s,e){var o=clamp((t-s)/0.35)*(t>e?clamp(1-(t-e)/0.35):1);document.getElementById(id).setAttribute('opacity',String(o));}
+    bub('bub1',6.8,8.8); bub('bub2',10.6,12.8);
+    document.getElementById('cap1').setAttribute('opacity', t<5?'1':'0');
+    document.getElementById('cap2').setAttribute('opacity', (t>=5&&t<10.4)?'1':'0');
+    document.getElementById('cap3').setAttribute('opacity', t>=10.4?'1':'0');
+  };
+  window.renderAt(0);
+  window.__ready=true;
+})();
+</script>
+</body></html>

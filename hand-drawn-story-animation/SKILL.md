@@ -27,7 +27,7 @@ Hard limits that do not move:
 
 ## Sizing rules (learned the hard way, encoded in the art prompt)
 
-- Canvas 540x960 viewBox, 9:16. A slight frame sits at 14px inset; ALL art stays inside x 30 to 510, y 30 to 930. A tree trunk crossing the frame edge was the v3 flaw.
+- Canvas 540x960 viewBox, 9:16. The paper matte covers the outer 23px; ALL art stays inside x 30 to 510, y 30 to 930. A tree trunk crossing the frame edge was the v3 flaw.
 - Hero character bounding box roughly x 50 to 370, y 545 to 835; hero head at least 150px wide at this size (about 300px at production scale).
 - Second character at least 95px tall or it reads as a sticker.
 - Captions live at y 886, one short line, cream #F3E9CF on the dark ground. Keep caption text under about 38 characters per line at 25 to 29px.
@@ -45,5 +45,5 @@ Change ONE lever per prompt version, name what it targets, probe-render, view, a
 
 ## Proven results
 
-- Bramble and the Sleepy Stars, 15s: v2 (Ann art) passed the format test; v3 (first Gemini art) fixed character shading and palette; v4 (prompt v2 plus slight frame) fixed canopy, trunk crop, and bed shape, and is the current keeper. Full records in `~/workspace/x-bookmarks-2026-11-26/category-c-tests/hand-drawn-98-105/` (RESULT.md, RESULT-V3.md).
+- Bramble and the Sleepy Stars, 15s: v2 (Ann art) passed the format test; v3 (first Gemini art) fixed character shading and palette; v4 (prompt v2) fixed canopy, trunk crop, and bed shape; v5 is the keeper, the v4 scene with the paper matte frame Rusty picked on 2026-11-26. The keeper video and its scene file live in this skill's examples/ folder (bramble-v5.mp4, scene-v5.html). The original test folder was scrubbed after the skill was saved; its RESULT files went with it.
 - Fit: Storytime PASS. Christian couples format fits (two characters, one bubble each, illustrated only) but human figures in this style are still untested; run one 10 second couple probe before adopting it there.
