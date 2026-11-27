@@ -16,6 +16,7 @@ Copy-paste prompts for the memory optimizations in this repo. Each one is writte
 | `10-side-chat-rooms-by-role.md` | When chats pile up — one room per job, main chat orchestrates |
 | `11-month-content-plan-that-doesnt-invent.md` | Planning a month of social posts from your own facts only, nothing invented |
 | `12-pdf-to-podcast.md` | Turning one PDF you supply into a two-host podcast script, claims tied to pages, script approved before audio |
+| `13-openverse-sound-effects.md` | Adding free, license checked sound effects from Openverse to a video, game or app, with credits written |
 
 Run them in order the first time: split first, then set the daily cleanup going, then use handoffs and the lean rules day to day.
 

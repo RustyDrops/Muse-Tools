@@ -119,6 +119,16 @@ Tools and rules for making short animations that actually move well.
   one purpose per shot, face/subject priority over scenery, background
   kept in the background, and the final frame carried over into any
   follow-up. Tell Muse how to shoot, not "make it look like a movie."
+- **Openverse sound effects** ([`openverse-sfx/`](openverse-sfx/))
+  Free sound effects with the license checked, for videos, games and
+  apps. List the sound jobs first (hook pop, typing ticks, payoff chime;
+  in a game: jump, coin, hit, win, UI click), search Openverse with the
+  included tool, CC0 public domain first, verify every license on its
+  detail record, download, check the file, and ship the auto written
+  CREDITS.md with the project. Comes with a game section (event to sound
+  map, preload and play code for HTML games and pygame), five copy paste
+  prompts, and three tested CC0 example sounds. No generative audio,
+  no account, $0.
 
 ## 💸 Penny Wise
 
