@@ -1,0 +1,127 @@
+{
+  "tool": "wfc5",
+  "version": "5.0.0",
+  "python": "3.12.3",
+  "pillow": "13.0.0",
+  "params": {
+    "width": 32,
+    "height": 32,
+    "water": 0.2,
+    "forest": 0.6,
+    "seed_requested": null,
+    "seed_used": 14,
+    "attempts": 15
+  },
+  "gates_passed": true,
+  "size": [
+    32,
+    32
+  ],
+  "legend": {
+    "W": "water",
+    "S": "sand",
+    "G": "grass",
+    "F": "forest",
+    "P": "path"
+  },
+  "origin": "grid[0][0] is the top-left cell; x grows right, y grows down",
+  "grid": [
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "GGGGGGSSSSGGFFGGGGGFFFFGGGGGGGGG",
+    "GGGGGGSSWSGGFFFGGGFFFFFGGGGGGGGG",
+    "GGGGGGSWWSSGGGFFFFFFFFFGGGGPGGGG",
+    "GGGGGGSWWWSSSGGGFFFFFFFGGGGPGGGG",
+    "GGGGGGSWWWSWSSSGFFFFFFFGGGGPPGGG",
+    "GGGGGGSWWWWWWWSGFFFFFFFGGGGGPGGG",
+    "GGGGGGSWWWWWWSSGGGGGFFFFGGGGPPGG",
+    "GGGGGGSWWWWWWSSSSSSGGFFFFGGPPGGG",
+    "GGGGGGSWWWWWWWWWSWSSGGFFFFGPGGGG",
+    "GGGGGGSWWWWWWWWWWWWSSGGFFFFPGGGG",
+    "GGGGGGGSWWWWWWWWWWWWSSGGFFFPPGGG",
+    "GGGGGGSSWWWWWWWWWWWWWSSGFFFFPPGG",
+    "GGFFGGSWWWWWWWWWWWWWWWSGFFFFGPGG",
+    "GGFFGGSWWWWWWWWWWWWWWWSGFFFFGPPG",
+    "GGFFFGSSWWWWWWWWWWWWWWSGFFFFGPGG",
+    "GGFFFGGSSWWWWWWWWWWWWSSGFFFFPPGG",
+    "GGFFFFGGSSSWWWWWWWWWWWSGFFFGGPGG",
+    "GGFFFFGGGSSWWWWWWWWWWSSGGGGGGPGG",
+    "GGFFFFFFGSWWWWWWWWWWWWSSGGGGGPPG",
+    "GGFFFFFFGSSSWWWWWWWWWWSSGGGGGPGG",
+    "GGFFFGGGGGSSSWWWWWWWWWWSGGGGGPGG",
+    "GGFFGGGGGGGGSSSSWWSWSWWSGGGGGPPG",
+    "GGFFGGGGGGGGGGSSSSSSSSSSGGGGPPGG",
+    "GGFFGGPGPPPGGGGGGGGGGPPGGGGPGGGG",
+    "GGGGGGGPGGPPGGGGPPPPPPPPPGPGPGGG",
+    "GGGGGGGGGGGPPPPPPPPPPGGGGPGGGGGG",
+    "GGGGGGGGGGGGPPGGGGGGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+    "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+  ],
+  "features": {
+    "clearings": [
+      {
+        "name": "spawn",
+        "x": 6,
+        "y": 25,
+        "radius": 2
+      },
+      {
+        "name": "camp",
+        "x": 27,
+        "y": 4,
+        "radius": 2
+      },
+      {
+        "name": "objective",
+        "x": 27,
+        "y": 27,
+        "radius": 2
+      }
+    ],
+    "path_cells": 65
+  },
+  "scoreboard": {
+    "water_grass_adjacencies": 0,
+    "sand_orphan_cells": 0,
+    "sand_share": 0.091,
+    "water_share": 0.186,
+    "land_share": 0.66,
+    "forest_share": 0.122,
+    "regions": 6,
+    "mean_region_size": 170.67,
+    "single_cell_regions": 0,
+    "same_neighbour_fraction": 0.794,
+    "water_roundness_P2_over_A": [
+      44.5
+    ],
+    "land_regions": 1,
+    "forest_shape": [
+      {
+        "area": 86,
+        "p2_over_a": 57.0,
+        "core_ratio": 0.44
+      },
+      {
+        "area": 39,
+        "p2_over_a": 33.2,
+        "core_ratio": 0.31
+      }
+    ],
+    "water_left_share": 0.63,
+    "water_top_share": 0.48,
+    "forest_left_share": 0.37,
+    "forest_top_share": 0.58,
+    "quadrant_non_grass_min": 0.44,
+    "border_forest_cells": 0,
+    "border_water_cells": 0,
+    "terrain_counts": {
+      "G": 551,
+      "S": 93,
+      "F": 125,
+      "W": 190,
+      "P": 65
+    }
+  }
+}

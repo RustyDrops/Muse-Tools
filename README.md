@@ -139,6 +139,10 @@ Tools and rules for making short animations that actually move well.
   example set: a flat crate, its maps, a before/after sheet and an
   orbiting light GIF. One honest catch is in there too: opaque sprites
   get blank occlusion and parallax maps, keep the alpha.
+## 🎮 Game Creation
+
+Tools for making games: levels, scenes, and the art on top.
+
 - **Kenney assets at real world scale** ([`kenney-assets/`](kenney-assets/))
   Free game models that fit your scene. Kenney packs (kenney.nl) are
   public domain CC0, but every kit is authored at its own scale, so raw
@@ -151,6 +155,18 @@ Tools and rules for making short animations that actually move well.
   Racing Kit track with three cars lapping, video included. Gates are
   numbers, not vibes: sizes within 2 percent, bases at zero, nothing
   overlapping, screenshot viewed.
+
+- **WFC level generator** ([`wfc-level-generator/`](wfc-level-generator/))
+  A WaveFunctionCollapse terrain generator with a hard contract: every
+  map it writes has passed every gate in code, or it writes nothing and
+  exits nonzero. Lakes with sand shores, blobby forest, three clearings
+  and a fully connected dirt path, exported as PNG, JSON, TMX (with
+  tileset) and plain text. Seed shop or single seed with honest retry,
+  a --verify mode for maps you are handed, and a 29 check test suite
+  covering sizes 16 to 64, determinism across processes, and refusal
+  behaviour. The folder also carries the tested image generation prompt
+  that redraws a generated map as a hand-drawn fantasy map without
+  moving the geography, before and after in examples/.
 
 ## 💸 Penny Wise
 
