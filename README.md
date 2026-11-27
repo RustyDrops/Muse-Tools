@@ -167,6 +167,8 @@ Tools for making games: levels, scenes, and the art on top.
   behaviour. The folder also carries the tested image generation prompt
   that redraws a generated map as a hand-drawn fantasy map without
   moving the geography, before and after in examples/.
+  Rectangular sizes work too: examples/ also holds a verified
+  96x64 world map (seed 331) and its smoothed fantasy restyle.
 
 ## 💸 Penny Wise
 
