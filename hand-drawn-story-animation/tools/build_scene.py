@@ -13,8 +13,9 @@ Usage:
 
 Sizes: the scene is authored at 540x960 (9:16). render_frames.py --scale 2 renders
 the production 1080x1920 version from the same file; SVG scales cleanly.
-Frame: "slight" (default) draws a thin wobbly inner line at 14px inset plus a soft
-outer line at 6px. Keep all art inside x 30..510, y 30..930 (the art prompt enforces it).
+Frame: "paper" (default, Rusty's pick 2026-11-26) is a cream book-page matte.
+"slight" is a thin wobbly inner line; Rusty ruled it does not go with the video.
+Keep all art inside x 30..510, y 30..930 (the art prompt enforces it).
 """
 import argparse, os, sys
 
@@ -118,6 +119,11 @@ TEMPLATE = r"""<!DOCTYPE html>
 FRAME_SLIGHT = """<rect x="6" y="6" width="528" height="948" fill="none" stroke="#0d1322" stroke-width="5" opacity="0.6"/>
   <path d="M16 17 C170 11 350 22 524 15 C529 300 519 640 525 943 C350 950 170 938 17 945 C12 650 22 320 16 17 Z" fill="none" stroke="#f3e9cf" stroke-width="2.5" opacity="0.45"/>"""
 
+FRAME_PAPER = """<rect x="0" y="0" width="540" height="960" fill="none" stroke="#f3e9cf" stroke-width="46"/>
+  <rect x="24" y="24" width="492" height="912" fill="none" stroke="#2b2118" stroke-width="2" opacity="0.35"/>"""
+
+FRAMES = {"slight": FRAME_SLIGHT, "paper": FRAME_PAPER, "none": ""}
+
 
 def split_art(art):
     bear_start = art.index('<g id="bearBed">')
@@ -134,7 +140,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--art", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--frame", choices=["slight", "none"], default="slight")
+    ap.add_argument("--frame", choices=["paper", "slight", "none"], default="paper")
     ap.add_argument("--cap1", default="Bramble could not sleep.")
     ap.add_argument("--cap2", default="He counted stars. They winked back.")
     ap.add_argument("--cap3", default="Just listen. The night is singing.")
@@ -146,7 +152,7 @@ def main():
     b1a, b1b = two_lines(a.bub1)
     b2a, b2b = two_lines(a.bub2)
     html = (TEMPLATE.replace("__ART_BEAR__", bear).replace("__ART_TREE__", tree)
-            .replace("__FRAME__", FRAME_SLIGHT if a.frame == "slight" else "")
+            .replace("__FRAME__", FRAMES[a.frame])
             .replace("__CAP1__", a.cap1).replace("__CAP2__", a.cap2).replace("__CAP3__", a.cap3)
             .replace("__BUB1A__", b1a).replace("__BUB1B__", b1b)
             .replace("__BUB2A__", b2a).replace("__BUB2B__", b2b))

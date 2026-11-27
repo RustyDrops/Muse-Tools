@@ -19,7 +19,7 @@ Hard limits that do not move:
 1. **Script first.** One scene, 15 seconds, 3 beats, from an existing story script where one exists. Lock the lines before any art.
 2. **Gemini critique.** Analyze the current best frames (or a first flat draft) with the critique prompt in PROMPTS.md. Save the raw reply next to the project as gemini-critique.txt.
 3. **Gemini art.** Run the art prompt from PROMPTS.md. Extract the two groups (`bearBed` hero group, `owlTree` set group) from the reply, verify the SVG parses as XML, save as gemini-art.svg. Check the groups carry `bearEyesOpen` and `bearEyesClosed` subgroups if the story needs the sleepy eye swap.
-4. **Build.** `tools/build_scene.py --art gemini-art.svg --out scene.html --frame slight` plus `--cap1/2/3` and `--bub1/--bub2` for the scene's lines. The builder adds the sky gradient, moon and halo, 3-tier star field, grain overlay, line boil, and the timeline.
+4. **Build.** `tools/build_scene.py --art gemini-art.svg --out scene.html --frame paper` plus `--cap1/2/3` and `--bub1/--bub2` for the scene's lines. The builder adds the sky gradient, moon and halo, 3-tier star field, grain overlay, line boil, and the timeline.
 5. **Probe before you pay for a render.** `tools/render_frames.py --scene scene.html --frames qa --probe 7.5,11,14.5`. View every probe at phone size yourself. Fix art problems at the prompt level (log the iteration in PROMPTS.md), not by patching paths by hand.
 6. **Full render.** `tools/render_frames.py --scene scene.html --frames frames --mp4 out.mp4`. Draft size is 540x960 (`--scale 1`); production is 1080x1920 (`--scale 2`) from the same file. Budget about 7 minutes per 15 seconds at draft size on this VM.
 7. **QA gate, measured.** Console errors none, seek purity diff 0.0 (the tool prints it), ffprobe facts recorded, freezedetect checked, and frames at the beat boundaries viewed at phone size. Never call it checked from a builder report alone.
@@ -35,8 +35,9 @@ Hard limits that do not move:
 
 ## Frame options (build_scene.py --frame)
 
-- `slight` (default): a soft dark outer line at 6px inset plus a thin wobbly cream inner line at 14px inset, 45% opacity. Reads as a picture-book plate, keeps attention inside the scene.
-- `none`: for scenes that bleed to the edge on purpose.
+- `paper` (default, Rusty's pick 2026-11-26): a cream book-page matte, 46px cream border with a faint inner ink line. It belongs to the piece; the scene reads as a page from the storybook.
+- `slight`: a soft dark outer line plus a thin wobbly cream inner line. Rusty ruled on 2026-11-26 that this styling does not go with the video (reads like a screenshot border). Kept in the tool for reference, do not use as a default.
+- `none`: full bleed, for feed-first pieces. A soft vignette overlay also tested well for feeds if a variant is ever needed.
 
 ## Iteration routine for the prompt
 
