@@ -129,6 +129,16 @@ Tools and rules for making short animations that actually move well.
   map, preload and play code for HTML games and pygame), five copy paste
   prompts, and three tested CC0 example sounds. No generative audio,
   no account, $0.
+- **Laigter sprite lighting** ([`laigter-sprite-lighting/`](laigter-sprite-lighting/))
+  Flat 2D sprites that react to light. Laigter (free, open source) turns
+  one flat sprite into normal, specular, occlusion and parallax maps, so
+  a torch or lamp in your game shades across props and characters instead
+  of them staying flat. The folder has the full workflow, the verified
+  Linux headless run line, a moving light preview renderer (check the
+  maps before wiring your engine), five copy paste prompts, and a tested
+  example set: a flat crate, its maps, a before/after sheet and an
+  orbiting light GIF. One honest catch is in there too: opaque sprites
+  get blank occlusion and parallax maps, keep the alpha.
 
 ## 💸 Penny Wise
 
